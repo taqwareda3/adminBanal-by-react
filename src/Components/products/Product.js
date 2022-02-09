@@ -11,6 +11,7 @@ const Product = () => {
   const [itemPerPage, setItemPerPage] = useState(7);
   const [pages, setPages] = useState([])
   const [CurrPage, setCurrPage] = useState(1)
+  
  
   const ProductsCollectionRef= collection(db,"Products")
   const indexOfLastProd = CurrPage * itemPerPage;

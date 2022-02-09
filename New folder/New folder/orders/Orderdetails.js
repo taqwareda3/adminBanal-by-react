@@ -17,14 +17,14 @@ const Products = () => {
     products.map((item) =>
       getData2(item.Product_Id)
         .then((s) => ((item.name = s.Name), (item.img = s.Image)))
-        .then(() => setprd([...iii,products]))
+        .then(() => setprd(products))
     );
   }, []);
 
   return (
     <>
-      <div className="bg-light row ">
-        <div className="p-5 col-lg-5">
+      <div className="bg-light ">
+        <div className="p-5">
           <h1>Order details</h1>
           {console.log(iii)}
           {products?.map((item) => {

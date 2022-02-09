@@ -131,8 +131,8 @@ const SellersList = () => {
               <tr>
                 <th scope="col-2">First Name</th>
                 <th scope="col-2">Last Name</th>
+                 <th scope="col-2">Phone</th>
                 <th scope="col-2">Email</th>
-                <th scope="col-2">Phone</th>
                 <th scope="col-2">Limits!</th>
               </tr>
             </thead>

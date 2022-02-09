@@ -15,7 +15,7 @@ const Products = () => {
   };
   useEffect(() => {
     products.map((item) =>
-      getData2(item.Product_Id)
+       getData2(item.Product_Id)
         .then((s) => ((item.name = s.Name), (item.img = s.Image)))
         .then(() => setprd([...iii,products]))
     );
@@ -23,16 +23,16 @@ const Products = () => {
 
   return (
     <>
-      <div className="bg-light row ">
-        <div className="p-5 col-lg-5">
+      <div className="bg-light ">
+        <div className="p-5">
           <h1>Order details</h1>
-          {console.log(iii)}
+          
           {products?.map((item) => {
             return (
               <>
                 <div className="card">
                   <img src={item.img} class="card-img-top orderimg" />
-                  <div className="card-body">
+                   <div className="card-body">
                     <h5 className="card-title">
                       <span className="fs-3 fw-bold text-danger">
                         Product name:{" "}

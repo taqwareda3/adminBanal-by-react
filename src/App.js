@@ -12,6 +12,8 @@ import Footer from './Components/footer/footer';
 import Products from './Components/orders/Orderdetails';
  
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Welcom from './Components/welcomePage/Welcom';
+ 
 
 
 
@@ -25,6 +27,7 @@ function App() {
       <Router>
 
         <Navbar />
+        
 
 
 
@@ -33,13 +36,15 @@ function App() {
           <Sidebar className="col-lg-3 fixed" />
 
           <div className='col-lg-9'>
-            <Switch>
+            <Switch> 
+            <Route path='/wel' component={Welcom} />
               <Route path='/SellersList' component={SellersList} />
               <Route path='/Products' component={Product} />
               <Route path='/Sales' component={Sales} />
               <Route path='/Users' component={Users} />
               <Route path='/orders' component={Dashboard} />
               <Route path='/orderDetails' component={Products} />
+             
               
 
           
