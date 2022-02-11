@@ -1,53 +1,44 @@
-import { collection, getDoc, getDocs, doc } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
-import "../orders/orders.css";
-import Dashboard from "./orders";
 import { useSelector } from "react-redux";
-import { db } from "./../firebase-config";
+import { Link } from "react-router-dom";
+import OrderItem from "./orderitem";
 const Products = () => {
-  const products = useSelector((state) => state.order_details);
-  const [iii, setprd] = useState([]);
-  const getData2 = async (index) => {
-    let id = index?.replace(/\s+/g, "");
-    const docRef = doc(db, "Products", id);
-    const user = await getDoc(docRef);
-    return user.data();
-  };
-  useEffect(() => {
-    products.map((item) =>
-      getData2(item.Product_Id)
-        .then((s) => ((item.name = s.Name), (item.img = s.Image)))
-        .then(() => setprd([...iii,products]))
-    );
-  }, []);
+  const products = useSelector((state) => state.products);
 
   return (
     <>
-      <div className="bg-light row ">
-        <div className="p-5 col-lg-5">
-          <h1>Order details</h1>
-          {console.log(iii)}
-          {products?.map((item) => {
-            return (
-              <>
-                <div className="card">
-                  <img src={item.img} class="card-img-top orderimg" />
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      <span className="fs-3 fw-bold text-danger">
-                        Product name:{" "}
-                      </span>
-                      {item.name}
-                    </h5>
-                    <p class="card-text fs-3">
-                      <span className=" fw-bold text-danger">Quantity: </span>
-                      {item.Product_Quntity} items
-                    </p>
-                  </div>
-                </div>
-              </>
-            );
-          })}
+      <div className=" table-responsive datatable-custom" >
+        <div className="shadow p-5">
+        <Link to="/orders">  <button className="btn btn-success float-end my-2">Back</button></Link>
+          <table
+            className="table table-striped table-bordered table-sm"
+            cellspacing="0"
+            width="100%"
+          >
+            <thead className="text-center">
+              <tr>
+                <th class="th-sm">#</th>
+
+                <th class="th-sm">Item</th>
+                <th class="th-sm">Name</th>
+                <th class="th-sm">quantity</th>
+                <th class="th-sm">Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {console.log(products)}
+              {products.map((prod, index) => {
+                return (
+                  <OrderItem
+                    id={index + 1}
+                    img={prod.Image}
+                    name={prod.Name}
+                    quantity={prod.details.Product_Quntity}
+                    category={prod.Category}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

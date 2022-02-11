@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
-import getOrderDetailsReducer from './reducerGetOrderDetails'
-import getProductReducer from './reducer'
+import OrderDetailsReducer from './OrderDetailsReducer'
+import OrdersReducer from './OrdersReducer'
+import ProductsReducer from "./ProductsReducer"
 export default combineReducers({
-    order_details:getOrderDetailsReducer,
-    orders:getProductReducer
+    order_details:OrderDetailsReducer,
+    orders:OrdersReducer,
+    products:ProductsReducer
 })

@@ -1,7 +1,7 @@
 const arr=[]
-function getProductReducer(state=arr,action){
+function OrdersReducer(state=arr,action){
     switch (action.type) {
-        case "GET_PRODUCTS":
+        case "GET_ORDERS":
             
            return action.payload
     default:
@@ -9,4 +9,4 @@ function getProductReducer(state=arr,action){
        
     }
 }
-export default getProductReducer
+export default OrdersReducer

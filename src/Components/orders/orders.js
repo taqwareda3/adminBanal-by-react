@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { db } from "./../firebase-config";
 import "firebase/database";
-import { collection, getDocs, doc, getDoc ,query,onSnapshot} from "firebase/firestore";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import getProducts from "../Store/action";
+import getOrders from "../Store/OrdersAction";
+import getOrderDetails from "../Store/ProductsAction";
 import "./orders.css";
-import getOrderDetails from "../Store/getOrderdetails";
-import Sales from "../sales/sales";
-const Dashboard = () => {
+const Dashboard = (props) => {
   const Users = collection(db, "users");
-  const [order, setorder] = useState([]);
+  const [buyer, setbuyer] = useState([]);
   const [UsersDocs, setUsersDocs] = useState([]);
   const senddata = (prds) => {
+    console.log(prds);
     dispatch(getOrderDetails(prds));
   };
-  //console.log(getDocs(Users));
-  
 
   const getSeller = async () => {
     const data = await getDocs(Users);
@@ -27,59 +25,20 @@ const Dashboard = () => {
         .filter((item) => item.isSeller)
     );
   };
-  //////seller count/////////////
   const getData2 = async (index) => {
     let id = index?.replace(/\s+/g, "");
-    const docRef = doc(db, "users", id);
+    const docRef = doc(db, id);
     const user = await getDoc(docRef);
-   
     return user.data();
   };
-  //////////////////user count/////
-  const [User, setUser] = useState([]);
-  useEffect(() => {
-    const q = query(collection(db, "users"));
-    let unsub = onSnapshot(q, (snap) => {
-      let fetched = snap.docs.map((index) => ({ ...index.data(), id: index.id }))
-
-
-
-      setUser(fetched);
-      // console.log(fetched);
-    })
-    return unsub;
-  }, [])
-  ////////////////////////////product count////////////
-  const [Product, setProduct] = useState([]);
-  const [FilterDocs, setFilterDocs] = useState([]);
-  const [itemPerPage, setItemPerPage] = useState(7);
-  const ProductsCollectionRef= collection(db,"Products")
-  const getDatapro = async () => {
-    const data = await getDocs(ProductsCollectionRef);
-    setProduct(data.docs.map((index) => ({ ...index.data(), id: index.id })));
-    setFilterDocs(
-      data.docs.map((index) => ({ ...index.data(), id: index.id }))
-    );
-    
-  };
-  useEffect(() => {
-    getDatapro();
-  }, []);
-  ///////////////////////////////////////
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.orders);
+  const Orders = useSelector((state) => state.orders);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getOrders());
     getSeller();
   }, []);
-  useEffect(() => {
-    products.map((order) => {
-      getData2(order.buyer)
-        .then((s) =>(order.buy=s.firstname))
-        .then(() => setorder(products));
-    });
-  }, []);
+
   return (
     <div className="col main pt-5 mt-3 h-100 mb-5">
       <nav aria-label="breadcrumb">
@@ -95,7 +54,6 @@ const Dashboard = () => {
           </li>
         </ol>
       </nav>
-      <Sales/>
       <p className="lead d-none d-sm-block">Add Employee Details and Records</p>
 
       <div
@@ -124,11 +82,13 @@ const Dashboard = () => {
               <div className="rotate">
                 <i className="fa fa-user fa-4x"></i>
               </div>
-              <Link to="/SellersList" className="text-white text-decoration-none">
-              <h6 className="text-uppercase" >Sellers</h6>
-              <h1 className="display-4">{UsersDocs.length} </h1>
+              <Link
+                to="/SellersList"
+                className="text-white text-decoration-none"
+              >
+                <h6 className="text-uppercase">Sellers</h6>
+                <h1 className="display-4">{UsersDocs.length}</h1>
               </Link>
-              
             </div>
           </div>
         </div>
@@ -138,10 +98,8 @@ const Dashboard = () => {
               <div className="rotate">
                 <i className="fa fa-list fa-4x"></i>
               </div>
-              <Link to="/Users" className="text-white text-decoration-none">
-              <h6 className="text-uppercase" >Users</h6>
-              <h1 className="display-4"> {User.length} </h1>
-              </Link>
+              <h6 className="text-uppercase">Posts</h6>
+              <h1 className="display-4">87</h1>
             </div>
           </div>
         </div>
@@ -149,17 +107,24 @@ const Dashboard = () => {
           <div className="card text-white bg-info h-100">
             <div className="card-body bg-info">
               <div className="rotate">
-                <i className="fa fa-cart-arrow-down fa-4x"></i>
-              
+                <i className="fab fa-twitter fa-4x"></i>
               </div>
-              <Link to="/Products" className="text-white text-decoration-none">
-              <h6 className="text-uppercase" > Products</h6>
-              <h1 className="display-4"> {Product.length}</h1>
-              </Link>
+              <h6 className="text-uppercase">Tweets</h6>
+              <h1 className="display-4">125</h1>
             </div>
           </div>
         </div>
-       
+        <div className="col-xl-3 col-sm-6 py-2">
+          <div className="card text-white bg-warning h-100">
+            <div className="card-body">
+              <div className="rotate">
+                <i className="fa fa-share fa-4x"></i>
+              </div>
+              <h6 className="text-uppercase">Shares</h6>
+              <h1 className="display-4">36</h1>
+            </div>
+          </div>
+        </div>
       </div>
       <hr />
 
@@ -175,20 +140,23 @@ const Dashboard = () => {
                   <th>#</th>
                   <th>Total</th>
                   <th>status</th>
-                  <th>ordered by</th>
+                  <th>Customer</th>
+                  <th>Customer email</th>
+                  <th>Order date</th>
                   <th></th>
                 </tr>
               </thead>
               <tbody>
-                {console.log(order)}
-                {products.map((order, index) => {
+                {console.log(Orders)}
+                {Orders?.map((order, index) => {
                   return (
-                    <tr>
+                    <tr key={index}>
                       <th>{index + 1}</th>
                       <th>{order.Total}</th>
                       <th>{order.status ? "Done" : "waiting..."}</th>
-                      <th>{order.buy}</th>
-                      {console.log(order.Product)}
+                      <th>{order.firstname}</th>
+                      <th>{order.email}</th>
+                      <th>{order.date}</th>
                       <th>
                         <Link to="/orderDetails">
                           <button
