@@ -13,6 +13,7 @@ import Products from './Components/orders/Orderdetails';
  
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Welcom from './Components/welcomePage/Welcom';
+import SellerDetails from './Components/sellers/SellersDetails';
  
 
 
@@ -44,6 +45,7 @@ function App() {
               <Route path='/Users' component={Users} />
               <Route path='/orders' component={Dashboard} />
               <Route path='/orderDetails' component={Products} />
+              <Route path='/SellerDetails' component={SellerDetails} />
              
               
 

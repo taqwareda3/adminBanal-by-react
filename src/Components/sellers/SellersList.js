@@ -1,18 +1,24 @@
 import { Firestore, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "./../firebase-config";
+import "firebase/database";
 import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {getSellers} from '../Store/SellerAction' ;
 import "./style.css";
+import getOrderDetails from "../Store/ProductsAction";
 
 const SellersList = () => {
-  const [UsersDocs, setUsersDocs] = useState([]);
+var show=[];
+  //const [UsersDocs, setUsersDocs] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [FilterDocs, setFilterDocs] = useState([]);
   const [itemPerPage, setItemPerPage] = useState(2);
   const [pages, setPages] = useState([])
   const [CurrPage, setCurrPage] = useState(1)
-  const Users = collection(db, "users");
+  //const Users = collection(db, "users");
   // console.log(getDocs(Users));
   const indexOfLastSeller = CurrPage * itemPerPage;
   const indexOfFirstSeller = indexOfLastSeller - itemPerPage;
@@ -20,19 +26,20 @@ const SellersList = () => {
     indexOfFirstSeller,
     indexOfLastSeller
   );
-  const getData = async () => {
-    const data = await getDocs(Users);
-    setUsersDocs(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller));
-    setFilterDocs(
-      data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-    );
-    // setPages(Math.ceil(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller).length / itemPerPage))
-    paginate(
+  // const getData = async () => {
+  //   const data = await getDocs(Users);
+  //   setUsersDocs(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller));
+  //   // setFilterDocs(
+  //   //   data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
+  //   // );
+  //   console.log(UsersDocs);
+  //   // setPages(Math.ceil(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller).length / itemPerPage))
+  //   paginate(
 
-      data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
+  //     data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
 
-    )
-  };
+  //   )
+  // };
 
   //**************************Search*****************/
   const goToPage = (page) => {
@@ -40,6 +47,15 @@ const SellersList = () => {
     setCurrPage(page)
 
   }
+
+const senddata=(items)=>{
+  console.log(items);
+  dispatch(getOrderDetails(items));
+  
+}
+
+
+
   // const filterTable = (e) => {
   //   //e.preventDefault();
   //   setKeyword(e.target.value)
@@ -52,10 +68,18 @@ const SellersList = () => {
 
   //   // setFilterDocs(data);
   // };
-
+  const dispatch = useDispatch();
+  const Users = useSelector((state) => state.seller);
+ 
+  //show=keyword==''?Users:currentDocs
   useEffect(() => {
-    getData();
-  }, []);
+    dispatch(getSellers())
+    paginate(Users);
+    setFilterDocs(Users);
+    
+     }, [Users]);
+
+   
   // [UsersDocs, Users]
   const onClickView = (id) => {
     //url/seller/id
@@ -64,14 +88,17 @@ const SellersList = () => {
     // console.log(id);
     const deleteuser = doc(db, "users", id);
     await deleteDoc(deleteuser);
-    getData();
+    getSellers();
+   
 
   };
+
   /************************Pan*****************/
   const PaneUser = async (id) => {
     let updateuser = doc(db, "users", id);
     await updateDoc(updateuser, { isSeller: false });
-    getData()
+    //getSellers()
+   paginate(FilterDocs)
     // setCurrPage(Math.ceil(currentDocs / itemPerPage) >= CurrPage ? CurrPage : CurrPage - 1)
   };
   const paginate = (items) => {
@@ -101,26 +128,30 @@ const SellersList = () => {
                 placeholder="What Do You Want ?"
 
                 onChange={(e) => {
+                 
                   // console.log("e",e)
                   setKeyword(e.target.value)
                   console.log(e.target.value);
                   // setKeyword(e.target.value);
-                  let data = UsersDocs;
+                 let data = Users;
+                 
                   console.log(data)
                   let newdata;
                   if (e.target.value) {
-                    data = UsersDocs && UsersDocs.length > 1 && UsersDocs.filter((el) =>
+                    data = Users && Users.length > 1 && Users.filter((el) =>
                       el["firstname"].includes(e.target.value) || el["lastname"].includes(e.target.value)
                       || el["phone"].includes(e.target.value) || el["email"].includes(e.target.value));
                     //  console.log("data",filtered);
                   }
+                  console.log(data);
                   setFilterDocs(data);
                   setCurrPage(1)
                   paginate(data)
+              
 
                 }}
               />{" "}
-             
+            
               <button className="btn btn-primary">Search</button>{" "}
             </div>
           </div>
@@ -136,9 +167,10 @@ const SellersList = () => {
                 <th scope="col-2">Limits!</th>
               </tr>
             </thead>
-            {currentDocs &&
-              currentDocs.length >= 1 &&
-              currentDocs.map((el) => {
+            {  show=keyword==''?Users:currentDocs,
+            currentDocs &&
+          currentDocs.length >= 1 &&
+          currentDocs.map((el) => {
                 return (
                   <>
                     <tr key={el.id}>
@@ -148,37 +180,23 @@ const SellersList = () => {
                       <td>{el.phone}</td>
                       <td>{el.email}</td>
                       <td>
-                        {/* 
-                          <button
-                            type="button"
-                            className="btn btn-danger"
-                            onClick={() => deleteUser(el.id)}
-                          >
-                            {" "}
-                            DELETE
-                          </button>
-                          <button
-                            type="button"
-                            className="btn btn-warning"
-                            onClick={() => PaneUser(el.id)}
-                          >
-                            Pane
-                          </button>
-                           <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={() => onClickView(el.id)}
-                          >
-                            {" "}
-                            View
-                          </button> 
-                        </div> */}
+                      
+                         
                        <div
                           className="btn-group"
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                        <button
+                           <Link to="/SellerDetails" className="text-danger"  onClick={() => senddata(el.Product)}>
+                            
+                            <button
+                               type="button"
+                              className="btn btn-primary"
+                            >
+                              show details
+                            </button>
+                            </Link>
+                                                <button
                             type="button"
                             className="btn btn-warning bg-warning"
                             data-bs-toggle="modal"
@@ -286,6 +304,7 @@ const SellersList = () => {
                                     {" "}
                                     DELETE
                                   </button>
+                                
                                 </div>
                               </div>
                             </div>

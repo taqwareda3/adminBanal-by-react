@@ -9,4 +9,4 @@ function getProductReducer(state=arr,action){
        
     }
 }
-export default getProductReducer
+export default getProductReducerzz
