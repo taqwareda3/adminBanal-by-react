@@ -1,4 +1,5 @@
 import React from 'react';
+import Sales from '../sales/sales';
 import './welcome.css'
 
 function Welcom() {
@@ -6,8 +7,10 @@ function Welcom() {
     welcome to 
      
     jumia<br/> Admin
-     Panal
+     Panel
+     <Sales></Sales>
   </div>
+  
 }
 
 export default Welcom;

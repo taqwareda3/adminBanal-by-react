@@ -11,41 +11,36 @@ const Sales = () => {
   const [ST, setST] = useState("");
   const ordersRef = collection(db, "Orders");
 
-  var totalsales = 0
   
-  var totalprofit = 0
 
 
   const getTotals = () => {
-
+      var totalsales = 0;
+        
+        var totalprofit = 0;
     sales.map((index) => {
       console.log(index.Total)
       var profits = parseInt(index.Total) * 0.1
       totalsales += parseInt(index.Total)
       totalprofit += profits
-      setST(totalsales)
-      setProfit(totalprofit)
-
+     
       console.log(profits)
     })
+     setST(totalsales)
+      setProfit(totalprofit)
+
     console.log(setProfit)
   }
 
 
 
   useEffect(() => {
+    getDocs(ordersRef).then((Orders)=>{
+      setSales(Orders.docs.map((doc)=>({...doc.data(),id:doc.id})))
+      getTotals();
+    })
 
-    const getData = async () => {
-      const Orders = await getDocs(ordersRef)
-      setSales(Orders.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-
-      )
-
-    }
-    getTotals()
-    getData()
-
-  }, [])
+  }, [ST, profit])
 
 
 
