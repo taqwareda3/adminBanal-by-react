@@ -4,11 +4,10 @@ import "../orders/orders.css";
 const OrderItem = (props) => {
   return (
     <>
-      {console.log(props)}
-      <tr>
+      <tr key={props.id}>
         <td>{props.id}</td>
         <td>
-          <img src={props.img} class="orderimg" />
+          <img src={props.img} className="orderimg" />
         </td>
 
         <td> {props.name} </td>

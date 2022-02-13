@@ -13,29 +13,31 @@ const Products = () => {
             {" "}
             <button className="btn btn-success float-end my-2">Back</button>
           </Link>
-          <table class="rwd-table">
-            <tr>
-              <th >#</th>
-              <th >Item</th>
-              <th >Name</th>
-              <th>Pice</th>
-              <th >quantity</th>
-              <th >Category</th>
-            </tr>
-
-            {console.log(products)}
-            {products.map((prod, index) => {
-              return (
-                <OrderItem
-                  id={index + 1}
-                  img={prod.Image}
-                  name={prod.Name}
-                  price={prod.Price}
-                  quantity={prod.details.Product_Quntity}
-                  category={prod.Category}
-                />
-              );
-            })}
+          <table className="rwd-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Name</th>
+                <th>Pice</th>
+                <th>quantity</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((prod, index) => {
+                return (
+                  <OrderItem
+                    id={index + 1}
+                    img={prod.Image}
+                    name={prod.Name}
+                    price={prod.Price}
+                    quantity={prod.details.Product_Quntity}
+                    category={prod.Category}
+                  />
+                );
+              })}
+            </tbody>
           </table>
         </div>
       </div>

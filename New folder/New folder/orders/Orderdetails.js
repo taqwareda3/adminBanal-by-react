@@ -39,7 +39,7 @@ const Products = () => {
                       </span>
                       {item.name}
                     </h5>
-                    <p class="card-text fs-3">
+                    <p className="card-text fs-3">
                       <span className=" fw-bold text-danger">Quantity: </span>
                       {item.Product_Quntity} items
                     </p>

@@ -6,7 +6,7 @@ import Product from "./Components/products/Product";
 import Dashboard from "./Components/dashboard/dashboard";
 import Sales from "./Components/sales/sales";
 import Users from "./Components/users/Users";
-import Orders from './Components/orders/orders'
+import Orders from "./Components/orders/orders";
 import Footer from "./Components/footer/footer";
 import Products from "./Components/orders/Orderdetails";
 

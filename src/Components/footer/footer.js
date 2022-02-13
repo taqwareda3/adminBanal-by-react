@@ -2,14 +2,14 @@ import React from 'react';
 
 function Footer() {
   return < >
-     <footer class="bg-light text-center text-lg-start col">
+     <footer className="bg-light text-center text-lg-start col">
   
-  <div class="container p-4">
+  <div className="container p-4">
     
-    <div class="row">
+    <div className="row">
       
-      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Footer text</h5>
+      <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 className="text-uppercase">Footer text</h5>
 
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
@@ -20,8 +20,8 @@ function Footer() {
      
 
  
-      <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-        <h5 class="text-uppercase">Footer text</h5>
+      <div className="col-lg-6 col-md-12 mb-4 mb-md-0">
+        <h5 className="text-uppercase">Footer text</h5>
 
         <p>
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis
@@ -36,9 +36,9 @@ function Footer() {
  
 
  
-  <div class="text-center p-3"  >
+  <div className="text-center p-3"  >
     © 2020 Copyright:
-    <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    <a className="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
   </div>
  
 </footer>

@@ -66,9 +66,9 @@ const Product = () => {
 
     
   <div class="row mb-5">
-        <div class="col-lg-12 col-md-6 col-sm-12 mb-5">
+        <div className="col-lg-12 col-md-6 col-sm-12 mb-5">
           
-        <h5 class="mt-3 mb-3 text-secondary">
+        <h5 className="mt-3 mb-3 text-secondary">
           Products thats shown in your site...
             
           </h5>
