@@ -18,12 +18,15 @@ const Orders = () => {
   const Orders = useSelector((state) => state.orders);
   const [filterOrders, setfilterOrders] = useState([]);
 
-  const jjj = (k) => {
-    const date = k.toLocaleString("en").split(",")[0];
-    console.log(date);
-  
+  const SearchByDate = (selecteddate) => {
+    const date = selecteddate.toLocaleString("en").split(",")[0];
+
     setfilterOrders([...Orders.filter((order) => order["date"] == date)]);
   };
+  var numEGP = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "EGP",
+  });
   useEffect(() => {
     dispatch(getOrders());
   }, []);
@@ -33,22 +36,19 @@ const Orders = () => {
   return (
     <>
       <div className="row">
-        <Datepicker
-          onSelect={(k) => {
-            jjj(k);
-          }}
-          selected={selectedDate}
-          onChange={(date) => setselectedDate(date)}
-          maxDate={new Date()}
-        />
-      </div>
-      <div className="row">
         <div className="col-lg-7 col-md-6 col-sm-12">
-          <h5 className="mt-3 mb-3 text-secondary">
-            Check More Records of Products
-          </h5>
+          <h5 className="mt-3 mb-3 text-secondary">Search By Date</h5>
         </div>
-
+        <div className="d-flex align-items-center">
+          <Datepicker
+            onSelect={(selecteddate) => {
+              SearchByDate(selecteddate);
+            }}
+            selected={selectedDate}
+            onChange={(date) => setselectedDate(date)}
+            maxDate={new Date()}
+          />
+        </div>
         <table className="rwd-table">
           <thead>
             <tr>
@@ -66,7 +66,7 @@ const Orders = () => {
               <tbody key={index}>
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{order.Total}</td>
+                  <td>{numEGP.format(order.Total)}</td>
                   <td>{order.status ? "Done" : "waiting..."}</td>
                   <td>{order.firstname}</td>
                   <td>{order.email}</td>

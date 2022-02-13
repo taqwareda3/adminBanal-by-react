@@ -4,7 +4,10 @@ import OrderItem from "./orderitem";
 import "./orders.scss";
 const Products = () => {
   const products = useSelector((state) => state.products);
-
+  var numEGP = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "EGP",
+  });
   return (
     <>
       <div className=" table-responsive datatable-custom">
@@ -31,7 +34,7 @@ const Products = () => {
                     id={index + 1}
                     img={prod.Image}
                     name={prod.Name}
-                    price={prod.Price}
+                    price={numEGP.format( prod.Price)}
                     quantity={prod.details.Product_Quntity}
                     category={prod.Category}
                   />

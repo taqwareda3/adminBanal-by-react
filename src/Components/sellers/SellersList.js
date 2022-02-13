@@ -71,7 +71,8 @@ const SellersList = () => {
     //  setFilterDocs([...Users]);
   }, []);
   useEffect(() => {
-    setFilterDocs([...Users]);
+    setFilterDocs(Users);
+    paginate(Users);
   }, [Users]);
 
   const deleteUser = async (id) => {
@@ -130,9 +131,9 @@ const SellersList = () => {
                       );
                     //  console.log("data",filtered);
                   }
-                  console.log(data);
+
                   setFilterDocs(data);
-                  setCurrPage(0);
+                  setCurrPage(1);
                   paginate(Users);
                 }}
               />{" "}
@@ -155,9 +156,9 @@ const SellersList = () => {
             {console.log(Users)}
             {
               //  ((show = keyword == "" ? Users : currentDocs),
-              //  currentDocs &&
-              //  currentDocs.length >= 1 &&
-              FilterDocs.map((el) => {
+                currentDocs &&
+                currentDocs.length >= 1 &&
+                currentDocs.map((el) => {
                 return (
                   <>
                     <tr key={el.id}>
