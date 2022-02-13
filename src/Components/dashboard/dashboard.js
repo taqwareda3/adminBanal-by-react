@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import DashBoardCard from "./dashbord-card";
+import BestProducts from './bestproducts'
 const DashBoard = () => {
   const [UsersDocs, setUsersDocs] = useState([]);
   const Users = collection(db, "users");
@@ -20,7 +21,7 @@ const DashBoard = () => {
     getSeller();
   }, []);
   return (
-    <div className="col main pt-5 mt-3 h-100 mb-5">
+    <div className="col main pt-5  h-100 mb-5">
       <div
         className="alert alert-warning fade collapse"
         role="alert"
@@ -52,6 +53,8 @@ const DashBoard = () => {
         <DashBoardCard title={"Shares"} result={36} color="primary" />
       </div>
       <hr />
+
+      <BestProducts/>
     </div>
   );
 };

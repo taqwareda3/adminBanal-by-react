@@ -22,7 +22,7 @@ const getProducts = async (products) => {
     ...doc.data(),
     details: products[index],
   }));
-  console.log(alldata);
+
   return alldata;
 };
 
