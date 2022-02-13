@@ -1,31 +1,28 @@
-import { Firestore, updateDoc } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "./../firebase-config";
 import "firebase/database";
-import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
+import { doc, deleteDoc } from "firebase/firestore";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {getSellers} from '../Store/SellerAction' ;
+import { getSellers } from "../Store/SellerAction";
 import "./style.css";
 import getOrderDetails from "../Store/ProductsAction";
 
 const SellersList = () => {
-var show=[];
+  var show = [];
   //const [UsersDocs, setUsersDocs] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [FilterDocs, setFilterDocs] = useState([]);
   const [itemPerPage, setItemPerPage] = useState(2);
-  const [pages, setPages] = useState([])
-  const [CurrPage, setCurrPage] = useState(1)
+  const [pages, setPages] = useState([]);
+  const [CurrPage, setCurrPage] = useState(1);
   //const Users = collection(db, "users");
   // console.log(getDocs(Users));
   const indexOfLastSeller = CurrPage * itemPerPage;
   const indexOfFirstSeller = indexOfLastSeller - itemPerPage;
-  const currentDocs = FilterDocs.slice(
-    indexOfFirstSeller,
-    indexOfLastSeller
-  );
+  const currentDocs = FilterDocs.slice(indexOfFirstSeller, indexOfLastSeller);
   // const getData = async () => {
   //   const data = await getDocs(Users);
   //   setUsersDocs(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller));
@@ -44,17 +41,13 @@ var show=[];
   //**************************Search*****************/
   const goToPage = (page) => {
     console.log("click pge", page);
-    setCurrPage(page)
+    setCurrPage(page);
+  };
 
-  }
-
-const senddata=(items)=>{
-  console.log(items);
-  dispatch(getOrderDetails(items));
-  
-}
-
-
+  const senddata = (items) => {
+    console.log(items);
+    dispatch(getOrderDetails(items));
+  };
 
   // const filterTable = (e) => {
   //   //e.preventDefault();
@@ -70,27 +63,22 @@ const senddata=(items)=>{
   // };
   const dispatch = useDispatch();
   const Users = useSelector((state) => state.seller);
- 
+
   //show=keyword==''?Users:currentDocs
   useEffect(() => {
-    dispatch(getSellers())
-    paginate(Users);
-    setFilterDocs(Users);
-    
-     }, [Users]);
+    dispatch(getSellers());
+    // paginate(Users);
+    //  setFilterDocs([...Users]);
+  }, []);
+  useEffect(() => {
+    setFilterDocs([...Users]);
+  }, [Users]);
 
-   
-  // [UsersDocs, Users]
-  const onClickView = (id) => {
-    //url/seller/id
-  };
   const deleteUser = async (id) => {
     // console.log(id);
     const deleteuser = doc(db, "users", id);
     await deleteDoc(deleteuser);
     getSellers();
-   
-
   };
 
   /************************Pan*****************/
@@ -98,7 +86,7 @@ const senddata=(items)=>{
     let updateuser = doc(db, "users", id);
     await updateDoc(updateuser, { isSeller: false });
     //getSellers()
-   paginate(FilterDocs)
+    paginate(FilterDocs);
     // setCurrPage(Math.ceil(currentDocs / itemPerPage) >= CurrPage ? CurrPage : CurrPage - 1)
   };
   const paginate = (items) => {
@@ -108,11 +96,9 @@ const senddata=(items)=>{
     for (let i = 1; i <= Math.ceil(items.length / itemPerPage); i++) {
       pageNumbers.push(i);
     }
-    setPages(pageNumbers)
-
-  }
+    setPages(pageNumbers);
+  };
   return (
-
     <>
       {console.log(pages)}
       <div className="container-fluid">
@@ -126,32 +112,30 @@ const senddata=(items)=>{
                 className="form-control"
                 value={keyword}
                 placeholder="What Do You Want ?"
-
                 onChange={(e) => {
-                 
-                  // console.log("e",e)
-                  setKeyword(e.target.value)
-                  console.log(e.target.value);
+                  setKeyword(e.target.value);
                   // setKeyword(e.target.value);
-                 let data = Users;
-                 
-                  console.log(data)
-                  let newdata;
+                  let data = Users;
+
                   if (e.target.value) {
-                    data = Users && Users.length > 1 && Users.filter((el) =>
-                      el["firstname"].includes(e.target.value) || el["lastname"].includes(e.target.value)
-                      || el["phone"].includes(e.target.value) || el["email"].includes(e.target.value));
+                    data =
+                      Users &&
+                      Users.length > 1 &&
+                      Users.filter(
+                        (el) =>
+                          el["firstname"].includes(e.target.value) ||
+                          el["lastname"].includes(e.target.value) ||
+                          el["phone"].includes(e.target.value) ||
+                          el["email"].includes(e.target.value)
+                      );
                     //  console.log("data",filtered);
                   }
                   console.log(data);
                   setFilterDocs(data);
-                  setCurrPage(1)
-                  paginate(data)
-              
-
+                  setCurrPage(0);
+                  paginate(Users);
                 }}
               />{" "}
-            
               <button className="btn btn-primary">Search</button>{" "}
             </div>
           </div>
@@ -162,15 +146,18 @@ const senddata=(items)=>{
               <tr>
                 <th scope="col-2">First Name</th>
                 <th scope="col-2">Last Name</th>
-                 <th scope="col-2">Phone</th>
+                <th scope="col-2">Phone</th>
                 <th scope="col-2">Email</th>
                 <th scope="col-2">Limits!</th>
               </tr>
             </thead>
-            {  show=keyword==''?Users:currentDocs,
-            currentDocs &&
-          currentDocs.length >= 1 &&
-          currentDocs.map((el) => {
+            {console.log(FilterDocs)}
+            {console.log(Users)}
+            {
+              //  ((show = keyword == "" ? Users : currentDocs),
+              //  currentDocs &&
+              //  currentDocs.length >= 1 &&
+              FilterDocs.map((el) => {
                 return (
                   <>
                     <tr key={el.id}>
@@ -180,29 +167,27 @@ const senddata=(items)=>{
                       <td>{el.phone}</td>
                       <td>{el.email}</td>
                       <td>
-                      
-                         
-                       <div
+                        <div
                           className="btn-group"
                           role="group"
                           aria-label="Basic mixed styles example"
                         >
-                           <Link to="/SellerDetails" className="text-danger"  onClick={() => senddata(el.Product)}>
-                            
-                            <button
-                               type="button"
-                              className="btn btn-primary"
-                            >
+                          <Link
+                            to="/SellerDetails"
+                            className="text-danger"
+                            onClick={() => senddata(el.Product)}
+                          >
+                            <button type="button" className="btn btn-primary">
                               show details
                             </button>
-                            </Link>
-                                                <button
+                          </Link>
+                          <button
                             type="button"
                             className="btn btn-warning bg-warning"
                             data-bs-toggle="modal"
                             data-bs-target="#PaneModal"
                           >
-                           Pane
+                            Pane
                           </button>
                           <div
                             className="modal fade"
@@ -239,18 +224,17 @@ const senddata=(items)=>{
                                     No
                                   </button>
                                   <button
-                            type="button"
-                            className="btn btn-warning"
-                            data-bs-dismiss="modal"
-                            onClick={() => PaneUser(el.id)}
-                          >
-                            Pane
-                          </button>
+                                    type="button"
+                                    className="btn btn-warning"
+                                    data-bs-dismiss="modal"
+                                    onClick={() => PaneUser(el.id)}
+                                  >
+                                    Pane
+                                  </button>
                                 </div>
                               </div>
                             </div>
                           </div>
-
 
                           <button
                             type="button"
@@ -304,27 +288,31 @@ const senddata=(items)=>{
                                     {" "}
                                     DELETE
                                   </button>
-                                
                                 </div>
                               </div>
                             </div>
                           </div>
-                          </div>
+                        </div>
                       </td>
                     </tr>
                   </>
                 );
-              })}
+              })
+            }
           </table>
-         
         </div>
         <div className="d-flex justify-content-center align-items-center">
-        <nav aria-label="Page navigation  example">
+          <nav aria-label="Page navigation  example">
             <ul className="pagination cursor pagination pagination-lg">
-              {pages && pages.length > 1 && pages.map(el =>
-                <li className={`page-item ${CurrPage == el ? 'active' : ''}`}><a class="page-link" onClick={() => goToPage(el)}>{el}</a></li>
-              )}
-
+              {pages &&
+                pages.length > 1 &&
+                pages.map((el) => (
+                  <li className={`page-item ${CurrPage == el ? "active" : ""}`}>
+                    <a class="page-link" onClick={() => goToPage(el)}>
+                      {el}
+                    </a>
+                  </li>
+                ))}
             </ul>
           </nav>
         </div>

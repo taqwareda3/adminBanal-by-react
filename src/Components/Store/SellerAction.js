@@ -10,49 +10,49 @@ import {
 import "firebase/database";
 
 const getData = async () => {
-     const Users = collection(db, "users");
-     const seller = await getDocs(Users);
-   const UsersDocs=seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller);
-//    const  FilterDocs=
-//        data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-//      ;
-//      setPages(Math.ceil(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller).length / itemPerPage))
-//      const  paginate=
-//      seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-    console.log(UsersDocs);
-    return UsersDocs;
-   };
-
-  //  const getFilterdData = async () => {
-  //    const Users = collection(db, "users");
-  //    const seller = await getDocs(Users);
+  const Users = collection(db, "users");
+  const seller = await getDocs(Users);
+  const UsersDocs = seller.docs
+    .map((index) => ({ ...index.data(), id: index.id }))
+    .filter((item) => item.isSeller);
   //    const  FilterDocs=
-  //    seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-  //     ;
-  //  return FilterDocs;
-  //    }
+  //        data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
+  //      ;
+  //      setPages(Math.ceil(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller).length / itemPerPage))
+  //      const  paginate=
+  //      seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
+  console.log(UsersDocs);
+  return UsersDocs;
+};
 
-  //    const getPaginatedData = async () => {
-  //         const Users = collection(db, "users");
-  //         const seller = await getDocs(Users);
-  //         const  PaginatDocs=
-  //         seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-  //          ;
-  //              return PaginatDocs;
-  //         }
+//  const getFilterdData = async () => {
+//    const Users = collection(db, "users");
+//    const seller = await getDocs(Users);
+//    const  FilterDocs=
+//    seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
+//     ;
+//  return FilterDocs;
+//    }
 
- export  function  getSellers () {
-     return (dispatch) => {
-       getData()
-         .then((seller) => dispatch({ type: "GET_SELLERS", payload: seller }))
+//    const getPaginatedData = async () => {
+//         const Users = collection(db, "users");
+//         const seller = await getDocs(Users);
+//         const  PaginatDocs=
+//         seller.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
+//          ;
+//              return PaginatDocs;
+//         }
 
-         .catch((err) => {
-           console.log(err);
-         });
-     };
-   }
+export function getSellers() {
+  return (dispatch) => {
+    getData()
+      .then((seller) => dispatch({ type: "GET_SELLERS", payload: seller }))
 
-
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+}
 
 //   export function getSellerDetails(products) {
 //      return (dispatch) => {
@@ -63,26 +63,24 @@ const getData = async () => {
 //          });
 //      };
 //    }
-   
 
-  // export function  getFilterdSellers  () {
-  //    return (dispatch) => {
-  //      getFilterdData()
-  //        .then((seller) => dispatch({ type: "GET_FILTER_SELLERS", payload: seller }))
+// export function  getFilterdSellers  () {
+//    return (dispatch) => {
+//      getFilterdData()
+//        .then((seller) => dispatch({ type: "GET_FILTER_SELLERS", payload: seller }))
 
-  //        .catch((err) => {
-  //          console.log(err);
-  //        });
-  //    };
-  //  }
-  // export  function getPaginationSellers() {
-  //    return (dispatch) => {
-  //      getPaginatedData()
-  //        .then((seller) => dispatch({ type: "GET_PAGINATE_SELLERS", payload: seller }))
+//        .catch((err) => {
+//          console.log(err);
+//        });
+//    };
+//  }
+// export  function getPaginationSellers() {
+//    return (dispatch) => {
+//      getPaginatedData()
+//        .then((seller) => dispatch({ type: "GET_PAGINATE_SELLERS", payload: seller }))
 
-  //        .catch((err) => {
-  //          console.log(err);
-  //        });
-  //    };
-  //  }
- 
+//        .catch((err) => {
+//          console.log(err);
+//        });
+//    };
+//  }
