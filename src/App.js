@@ -6,8 +6,9 @@ import Product from "./Components/products/Product";
 import Dashboard from "./Components/dashboard/dashboard";
 import Sales from "./Components/sales/sales";
 import Users from "./Components/users/Users";
+import UserDetails from "./Components/users/userDetails";
 import Orders from "./Components/orders/orders";
-import Footer from "./Components/footer/footer";
+// import Footer from "./Components/footer/footer";
 import Products from "./Components/orders/Orderdetails";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -29,16 +30,18 @@ function App() {
               <Route path="/Products" component={Product} />
               <Route path="/Sales" component={Sales} />
               <Route path="/Users" component={Users} />
+              <Route path="//userDetails" component={UserDetails}/>
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/orders" component={Orders} />
 
               <Route path="/orderDetails" component={Products} />
               <Route path="/SellerDetails" component={SellerDetails} />
               <Route path="" component={Welcom} />
+              
             </Switch>
           </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </div>
   );

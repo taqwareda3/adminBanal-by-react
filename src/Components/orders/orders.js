@@ -16,6 +16,26 @@ const Orders = () => {
   const [selectedDate, setselectedDate] = useState(new Date());
   const dispatch = useDispatch();
   const Orders = useSelector((state) => state.orders);
+  //////////search by username////////////
+  const [search, setSearch] = useState([]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  ///////////
   const [filterOrders, setfilterOrders] = useState([]);
 
   const SearchByDate = (selecteddate) => {
@@ -36,9 +56,10 @@ const Orders = () => {
   return (
     <>
       <div className="row">
-        <div className="col-lg-7 col-md-6 col-sm-12">
+        <div className="col-lg-3 col-md-6 col-sm-12">
           <h5 className="mt-3 mb-3 text-secondary">Search By Date</h5>
         </div>
+       
         <div className="d-flex align-items-center">
           <Datepicker
             onSelect={(selecteddate) => {
@@ -49,6 +70,30 @@ const Orders = () => {
             maxDate={new Date()}
           />
         </div>
+        <div className="col-md-10">
+          <div className="search">
+
+            <i className="fa fa-search"></i>
+            <input
+              type="text"
+              className="form-control"
+              value={search}
+              placeholder="who user you want ?"
+              type="text"
+              onChange={(e) => {
+
+                setSearch(e.target.value)
+                // console.log( e.target.value);
+              }}
+
+
+            />
+          </div>
+        </div>
+        <button  className="btn btn-primary ta col-lg-2"
+          placeholder="searh"
+
+        >search</button>
         <table className="rwd-table">
           <thead>
             <tr>
@@ -61,7 +106,16 @@ const Orders = () => {
               <th></th>
             </tr>
           </thead>
-          {filterOrders.map((order, index) => {
+          {filterOrders
+           .filter(val => {
+            if (search == "")
+            return filterOrders ;
+           
+              else if (val.firstname.toLowerCase().includes(search.toLowerCase())) {
+              return val
+            }
+
+          }).map((order, index) => {
             return (
               <tbody key={index}>
                 <tr key={index}>
