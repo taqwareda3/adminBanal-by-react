@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "./../firebase-config";
-import {firestore, collection, getDocs, doc, query, where, onSnapshot } from "firebase/firestore";
+import {firestore, collection, getDocs, doc, query, where, addDoc, } from "firebase/firestore";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import './sales.css'
@@ -12,8 +12,8 @@ const Sales = () => {
 
   const [ST, setST] = useState("");
  const ordersRef = query(collection(db, "Orders"), where('Total', ">=", 2000));
-  //const ordersRef = db.firestore().collection('Orders')
   
+ 
 
 
   const getTotals = () => {
@@ -69,7 +69,7 @@ const Sales = () => {
           </div>
         </div>
       </div>
-      
+     
       <div class="col-lg-4 col-5 col-sm-6 py-2">
         <Link to="/salesDetails" style={{ textDecoration: 'none' }}>
         <div class="card text-white  h-100">

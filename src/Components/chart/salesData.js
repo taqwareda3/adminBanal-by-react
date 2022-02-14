@@ -1,34 +1,64 @@
 
 import React, {useState, useEffect } from "react";
 import {db} from "./../firebase-config";
-import { collection, getDocs, doc, query, where } from "firebase/firestore";
+import { collection, getDocs, where, query, addDoc, orderBy } from "firebase/firestore";
 
 const SalesData = () => {
 
     const [data, setData] = useState([]);
-    
+    const [sales, setSales] = useState([]);
+    const [ST, setST] = useState("");
 
-    const dataRef = collection(db, "Daily_Sales");
+    const dataRef = query(collection(db, "Daily_Sales"), orderBy('Date'));
+
+    const getTotals = () => {
+      var totalsales = 0;
+      sales.map((index) => {
+      console.log(index.Total)
+      totalsales += parseInt(index.Total)
+    })
+     setST(totalsales)
+  }
 
     const getDate =async ()=>{
         const data = await getDocs(dataRef);
         data.map((index)=>{
             var dates = index.Date
-            console.log(dates)
+      
             var sales = index.Sales;
-            console.log(sales)
+            
         })
     }
+    const dayRef = collection(db, "Daily_Sales")
 
+    /*date*/
+    var _date = new Date();
+  let midnight = _date.getUTCHours() + 2;
+  let datee = _date.getDate();
+  let _month = _date.getMonth() + 1;
+  let _year = _date.getFullYear()
+  let total_date = `${_month}/${datee}/${_year}`;
+
+   /*add new day* */
+  const ordersRef = query(collection(db, "Orders"), where('date', "==", total_date.toString()));
+
+   function test(){
+ 
+       let Date= total_date
+       let Sales=ST
+       const payload = {Date, Sales}
+       addDoc(dayRef,payload);
+     }
 useEffect(() => {
     getDocs(dataRef).then((Daily_Sales) => {
         setData(Daily_Sales.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       getDate();
-  
-      
     });
-
-  }, []);
+    getDocs(ordersRef).then((Orders)=>{
+      setSales(Orders.docs.map((doc)=>({...doc.data(),id:doc.id})))
+      getTotals();
+    })
+  }, [ST]);
     return(
         <>
         <div className="row d-flex justify-content-center bg-secondary">
@@ -59,6 +89,7 @@ useEffect(() => {
               </table>
               </div>
               </div>
+              <button onClick={()=>test()}>test</button>
         </>
     )
 }
