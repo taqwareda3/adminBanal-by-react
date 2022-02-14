@@ -16,7 +16,7 @@ const ChartData = () => {
   const [date, setDate] = useState({});
  
   /*useEffect(
- onSnapshot(collection(db,"colors"),(snapshot)=>setDate(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
+ onSnapshot(collection(db,"Sales_Data"),(snapshot)=>setDate(snapshot.docs.map((doc)=>({...doc.data(),id:doc.id})))
  ),[]); */
   const collectionRef = collection(db, "Daily_Sales");
 
