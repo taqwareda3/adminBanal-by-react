@@ -1,15 +1,15 @@
-import { updateDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { Firestore, updateDoc } from "firebase/firestore";
+import { useEffect, useRef, useState } from "react";
 import { db } from "./../firebase-config";
 import "firebase/database";
-import { doc, deleteDoc } from "firebase/firestore";
+import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSellers } from "../Store/SellerAction";
 import "./style.css";
 import getOrderDetails from "../Store/ProductsAction";
-
+import Dialog from "../Dialoge/dialog";
 const SellersList = () => {
   var show = [];
   //const [UsersDocs, setUsersDocs] = useState([]);
@@ -18,25 +18,34 @@ const SellersList = () => {
   const [itemPerPage, setItemPerPage] = useState(2);
   const [pages, setPages] = useState([]);
   const [CurrPage, setCurrPage] = useState(1);
+  const [dialog, setDialog] = useState({
+    message: "",
+    isLoading: false,
+  });
+  const idSellerRef = useRef();
+  const handleDialoag = (message, isLoading) => {
+    setDialog({
+      message,
+      isLoading,
+    });
+  };
+  const [deleteDialog,setDeleteDialog]=useState({
+    message: "",
+    isLoading: false,
+  });
+  const idDeleteSellerRef = useRef();
+  const handleDeleteDialoag = (message, isLoading) => {
+    setDeleteDialog({
+      message,
+      isLoading,
+    });
+  };
   //const Users = collection(db, "users");
   // console.log(getDocs(Users));
   const indexOfLastSeller = CurrPage * itemPerPage;
   const indexOfFirstSeller = indexOfLastSeller - itemPerPage;
   const currentDocs = FilterDocs.slice(indexOfFirstSeller, indexOfLastSeller);
-  // const getData = async () => {
-  //   const data = await getDocs(Users);
-  //   setUsersDocs(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller));
-  //   // setFilterDocs(
-  //   //   data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-  //   // );
-  //   console.log(UsersDocs);
-  //   // setPages(Math.ceil(data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller).length / itemPerPage))
-  //   paginate(
 
-  //     data.docs.map((index) => ({ ...index.data(), id: index.id })).filter((item) => item.isSeller)
-
-  //   )
-  // };
 
   //**************************Search*****************/
   const goToPage = (page) => {
@@ -49,47 +58,60 @@ const SellersList = () => {
     dispatch(getOrderDetails(items));
   };
 
-  // const filterTable = (e) => {
-  //   //e.preventDefault();
-  //   setKeyword(e.target.value)
-  //   console.log(e.target.value);
-  //   // setKeyword(e.target.value);
-  //   let data = FilterDocs.filter((el) => {
-  //     return el["firstname"].includes(keyword);
-  //   });
-  //   console.log("data", data);
-
-  //   // setFilterDocs(data);
-  // };
   const dispatch = useDispatch();
   const Users = useSelector((state) => state.seller);
 
-  //show=keyword==''?Users:currentDocs
+ 
   useEffect(() => {
     dispatch(getSellers());
-    // paginate(Users);
-    //  setFilterDocs([...Users]);
   }, []);
   useEffect(() => {
-    setFilterDocs(Users);
     paginate(Users);
+    setFilterDocs(Users);
   }, [Users]);
 
-  const deleteUser = async (id) => {
-    // console.log(id);
-    const deleteuser = doc(db, "users", id);
-    await deleteDoc(deleteuser);
-    getSellers();
-  };
 
-  /************************Pan*****************/
-  const PaneUser = async (id) => {
-    let updateuser = doc(db, "users", id);
-    await updateDoc(updateuser, { isSeller: false });
-    //getSellers()
-    paginate(FilterDocs);
-    // setCurrPage(Math.ceil(currentDocs / itemPerPage) >= CurrPage ? CurrPage : CurrPage - 1)
+
+  //******************Delete**************/
+  const deleteUser =  (id) => {
+    // console.log(id);
+    handleDeleteDialoag("Are U Sure To Delete", true);
+    idDeleteSellerRef.current=id;
+    
   };
+  const areUSureDelete=async(choose)=>{
+    if(choose){
+      const deleteuser = doc(db, "users", idDeleteSellerRef.current);
+    await deleteDoc(deleteuser);
+    if (currentDocs.length == 1 && CurrPage != 1) {
+      setCurrPage(CurrPage - 1);
+    }
+    dispatch(getSellers());
+    handleDeleteDialoag("", false);
+  } else {
+    handleDeleteDialoag("", false);
+  }
+  }
+
+  /************************PanStaer*****************/
+  const PaneUser = (id) => {
+    handleDialoag("Are U Sure", true);
+    idSellerRef.current = id;
+  };
+  const areUSureToPane = async (choose) => {
+    if (choose) {
+      let updateuser = doc(db, "users", idSellerRef.current);
+      await updateDoc(updateuser, { isSeller: false });
+      if (currentDocs.length == 1 && CurrPage != 1) {
+        setCurrPage(CurrPage - 1);
+      }
+      dispatch(getSellers());
+      handleDialoag("", false);
+    } else {
+      handleDialoag("", false);
+    }
+  };
+//**********************PanEnd*******************************************//
   const paginate = (items) => {
     let startOf;
     let endOf;
@@ -114,10 +136,14 @@ const SellersList = () => {
                 value={keyword}
                 placeholder="What Do You Want ?"
                 onChange={(e) => {
+                  // console.log("e",e)
                   setKeyword(e.target.value);
+                  console.log(e.target.value);
                   // setKeyword(e.target.value);
                   let data = Users;
 
+                  console.log(data);
+                  let newdata;
                   if (e.target.value) {
                     data =
                       Users &&
@@ -131,10 +157,10 @@ const SellersList = () => {
                       );
                     //  console.log("data",filtered);
                   }
-
+                  console.log(data);
                   setFilterDocs(data);
                   setCurrPage(1);
-                  paginate(Users);
+                  paginate(data);
                 }}
               />{" "}
               <button className="btn btn-primary">Search</button>{" "}
@@ -152,13 +178,17 @@ const SellersList = () => {
                 <th scope="col-2">Limits!</th>
               </tr>
             </thead>
-            {console.log(FilterDocs)}
-            {console.log(Users)}
-            {
-              //  ((show = keyword == "" ? Users : currentDocs),
-                currentDocs &&
-                currentDocs.length >= 1 &&
-                currentDocs.map((el) => {
+           
+            {console.log(currentDocs.length)}
+            {currentDocs.length == 0 ? (
+              <div
+                class="alert alert-danger fs-1 text-center m-auto "
+                role="alert"
+              >
+                You Have NO Sellers
+              </div>
+            ) : (
+              currentDocs.map((el) => {
                 return (
                   <>
                     <tr key={el.id}>
@@ -182,124 +212,45 @@ const SellersList = () => {
                               show details
                             </button>
                           </Link>
+
+                          {dialog.isLoading && (
+                            <Dialog
+                              onDialog={areUSureToPane}
+                              message={dialog.message}
+                            />
+                          )}
+
                           <button
                             type="button"
-                            className="btn btn-warning bg-warning"
-                            data-bs-toggle="modal"
-                            data-bs-target="#PaneModal"
+                            className="btn btn-warning"
+                            onClick={() => PaneUser(el.id)}
                           >
                             Pane
                           </button>
-                          <div
-                            className="modal fade"
-                            id="PaneModal"
-                            tabindex="-1"
-                            aria-labelledby="exampleModalLabel"
-                            aria-hidden="true"
-                          >
-                            <div className="modal-dialog">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5
-                                    className="modal-title"
-                                    id="exampleModalLabel"
-                                  >
-                                    Modal title
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                  ></button>
-                                </div>
-                                <div className="modal-body text-warning">
-                                  Are U Sure !
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                  >
-                                    No
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="btn btn-warning"
-                                    data-bs-dismiss="modal"
-                                    onClick={() => PaneUser(el.id)}
-                                  >
-                                    Pane
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
 
+                           {deleteDialog.isLoading && (
+                            <Dialog
+                              onDialog={areUSureDelete}
+                              message={deleteDialog.message}
+                            />
+                          )}
                           <button
                             type="button"
-                            className="btn btn-danger bg-danger"
-                            data-bs-toggle="modal"
-                            data-bs-target="#DeleteModal"
+                            className="btn btn-danger"
+                            onClick={() => deleteUser(el.id)}
                           >
+                            {" "}
                             DELETE
-                          </button>
+                          </button> 
 
-                          <div
-                            className="modal fade"
-                            id="DeleteModal"
-                            tabindex="-1"
-                            aria-labelledby="exampleModalLabel"
-                            aria-hidden="true"
-                          >
-                            <div className="modal-dialog">
-                              <div className="modal-content">
-                                <div className="modal-header">
-                                  <h5
-                                    className="modal-title"
-                                    id="exampleModalLabel"
-                                  >
-                                    Modal title
-                                  </h5>
-                                  <button
-                                    type="button"
-                                    className="btn-close"
-                                    data-bs-dismiss="modal"
-                                    aria-label="Close"
-                                  ></button>
-                                </div>
-                                <div className="modal-body text-danger">
-                                  Are U Sure !
-                                </div>
-                                <div className="modal-footer">
-                                  <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    data-bs-dismiss="modal"
-                                  >
-                                    No
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="btn btn-danger"
-                                    data-bs-dismiss="modal"
-                                    onClick={() => deleteUser(el.id)}
-                                  >
-                                    {" "}
-                                    DELETE
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                        
                         </div>
                       </td>
                     </tr>
                   </>
                 );
               })
-            }
+            )}
           </table>
         </div>
         <div className="d-flex justify-content-center align-items-center">
