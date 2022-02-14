@@ -4,21 +4,13 @@ import { Link } from "react-router-dom";
 import { db } from "../firebase-config";
 import DashBoardCard from "./dashbord-card";
 import BestProducts from './bestproducts'
+import { useDispatch, useSelector } from "react-redux";
+import { getSellers } from "../Store/SellerAction";
 const DashBoard = () => {
-  const [UsersDocs, setUsersDocs] = useState([]);
-  const Users = collection(db, "users");
-
-  const getSeller = async () => {
-    const data = await getDocs(Users);
-
-    setUsersDocs(
-      data.docs
-        .map((index) => ({ ...index.data(), id: index.id }))
-        .filter((item) => item.isSeller)
-    );
-  };
+   const dispatch = useDispatch();
+  const UsersDocs=useSelector((state) => state.seller);
   useEffect(() => {
-    getSeller();
+  dispatch(getSellers());
   }, []);
   return (
     <div className="col main pt-5  h-100 mb-5">
