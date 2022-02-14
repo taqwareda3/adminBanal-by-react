@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { db } from "./../firebase-config";
-import { collection, getDocs, doc, query, where } from "firebase/firestore";
+import {firestore, collection, getDocs, doc, query, where, onSnapshot } from "firebase/firestore";
 import Select from "react-select";
+import { Link } from "react-router-dom";
+import './sales.css'
 
 const Sales = () => {
 
@@ -9,8 +11,8 @@ const Sales = () => {
   const [profit, setProfit] = useState("");
 
   const [ST, setST] = useState("");
-  const ordersRef = collection(db, "Orders");
-
+ const ordersRef = query(collection(db, "Orders"), where('Total', ">=", 2000));
+  //const ordersRef = db.firestore().collection('Orders')
   
 
 
@@ -18,7 +20,8 @@ const Sales = () => {
       var totalsales = 0;
         
         var totalprofit = 0;
-    sales.map((index) => {
+        
+      sales.map((index) => {
       console.log(index.Total)
       var profits = parseInt(index.Total) * 0.1
       totalsales += parseInt(index.Total)
@@ -26,6 +29,8 @@ const Sales = () => {
      
       console.log(profits)
     })
+      
+    
      setST(totalsales)
       setProfit(totalprofit)
 
@@ -46,8 +51,8 @@ const Sales = () => {
 
   return (
    
-    <div className="row my-5">
-      <div class="col-lg-4 col-6 col-sm-6 py-2">
+    <div className="row my-5 d-flex justify-content-center">
+      <div class="col-lg-4 col-5 col-sm-6 py-2">
         <div class="card text-white bg-danger h-100">
           <div class="card-body bg-danger">
             <div className="row">
@@ -64,7 +69,9 @@ const Sales = () => {
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-6 col-sm-6 py-2">
+      
+      <div class="col-lg-4 col-5 col-sm-6 py-2">
+        <Link to="/salesDetails" style={{ textDecoration: 'none' }}>
         <div class="card text-white  h-100">
           <div class="card-body bg-success">
             <div className="row">
@@ -79,7 +86,10 @@ const Sales = () => {
               {ST}</h1>
           </div>
         </div>
+        </Link>
       </div>
+      
+
     </div>
 
 

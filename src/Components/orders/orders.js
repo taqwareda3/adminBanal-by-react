@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import getOrders from "../Store/OrdersAction";
 import getOrderDetails from "../Store/ProductsAction";
 import "./orders.css";
+
+import Sales from "../sales/sales";
 const Dashboard = (props) => {
   const Users = collection(db, "users");
   const [buyer, setbuyer] = useState([]);
@@ -72,6 +74,9 @@ const Dashboard = (props) => {
         </button>
         <strong>Data and Records</strong> Learn more about employee
       </div>
+      <div className="row">
+                <Sales></Sales>
+              </div>
       <div className="row mb-3">
         <div className="col-xl-3 col-sm-6 py-2">
           <div className="card bg-success text-white h-100">
@@ -82,6 +87,7 @@ const Dashboard = (props) => {
               <div className="rotate">
                 <i className="fa fa-user fa-4x"></i>
               </div>
+              
               <Link
                 to="/SellersList"
                 className="text-white text-decoration-none"
@@ -111,6 +117,7 @@ const Dashboard = (props) => {
               </div>
               <h6 className="text-uppercase">Tweets</h6>
               <h1 className="display-4">125</h1>
+              
             </div>
           </div>
         </div>

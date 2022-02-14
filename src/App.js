@@ -7,14 +7,12 @@ import Product from './Components/products/Product';
 import Dashboard from './Components/orders/orders';
 import Sales from './Components/sales/sales';
 import Users from './Components/users/Users';
-
 import Footer from './Components/footer/footer';
 import Products from './Components/orders/Orderdetails';
- 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Welcom from './Components/welcomePage/Welcom';
 import SellerDetails from './Components/sellers/SellersDetails';
- 
+ import SalesData from './Components/chart/salesData';
 
 
 
@@ -46,7 +44,7 @@ function App() {
               <Route path='/orders' component={Dashboard} />
               <Route path='/orderDetails' component={Products} />
               <Route path='/SellerDetails' component={SellerDetails} />
-             
+              <Route path='/salesDetails' component={SalesData}/>
               
 
           
