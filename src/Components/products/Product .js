@@ -1,10 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "./../firebase-config";
 import "./Products.css";
-import Modal from "react-bootstrap/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import{getProducts} from "../Store/ProductsAction";
+
 import "bootstrap/dist/css/bootstrap.min.css";
+import Dialog from "../Dialoge/dialog";
+
 import {
-  collection,
+  collection, 
   doc,
   deleteDoc,
   getDocs,
@@ -13,7 +17,7 @@ import {
   QuerySnapshot,
 } from "firebase/firestore";
 
-const Products = () => {
+const Product = () => {
   const [Product, setProduct] = useState([]);
   const [FilterDocs, setFilterDocs] = useState([]);
   const [itemPerPage, setItemPerPage] = useState(7);
@@ -25,16 +29,7 @@ const Products = () => {
   const indexOfLastProd = CurrPage * itemPerPage;
   const indexOfFirstProd = indexOfLastProd - itemPerPage;
   const currentDocs = FilterDocs.slice(indexOfFirstProd, indexOfLastProd);
-//model
-const [isOpen, setIsOpen] = useState(false);
-
-const showModal = () => {
-  setIsOpen(true);
-};
-
-const hideModal = () => {
-  setIsOpen(false);
-};
+//get data 
   const getData = async () => {
     const data = await getDocs(ProductsCollectionRef);
     setProduct(data.docs.map((index) => ({ ...index.data(), id: index.id })));
@@ -43,7 +38,31 @@ const hideModal = () => {
     );
     paginate(data.docs.map((index) => ({ ...index.data(), id: index.id })));
   };
-
+//model that shown when delete
+const [deleteDialog,setDeleteDialog]=useState({
+  message: "",
+  isLoading: false,
+});
+const idDeleteProd = useRef();
+const handleDeleteDialoag = (message, isLoading) => {
+  setDeleteDialog({
+    message,
+    isLoading,
+  });
+};
+const areUSureDelete=async(choose)=>{
+  if(choose){
+    const deleteProd = doc(db, "Products", idDeleteProd.current);
+  await deleteDoc(deleteProd);
+  if (currentDocs.length === 1 && CurrPage !== 1) {
+    setCurrPage(CurrPage - 1);
+  }
+  dispatch(getData());
+  handleDeleteDialoag("", false);
+} else {
+  handleDeleteDialoag("", false);
+}
+}
   const try1 = async (c) => {
     const x =  query(ProductsCollectionRef, where("Category", "==", selects));
     const querySnapshot = await getDocs(x);
@@ -67,15 +86,23 @@ const hideModal = () => {
     console.log("click pge", page);
     setCurrPage(page);
   };
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    getData();
-  }, []);
+ useEffect(() => {
+  getData();
+}, []);
+ 
 
+  //delete
+ 
+
+  
   const deleteProd = async (id) => {
-    const prodDoc = doc(db, "Products", id);
-    await deleteDoc(prodDoc);
-    getData();
+    handleDeleteDialoag("Are U Sure To Delete", true);
+    idDeleteProd.current=id;
+    // const prodDoc = doc(db, "Products", id);
+    // await deleteDoc(prodDoc);
+    // getData();
   };
   return (
     <div className="row mb-5">
@@ -92,9 +119,9 @@ const hideModal = () => {
                
                 onChange={(e) => {
                   setSearch(e.target.value);
-                  console.log(e.target.value);
+                 // console.log(e.target.value);
                   let data = Product;
-                  console.log("data");
+                 // console.log("data");
 
                   if (e.target.value) {
                     data =
@@ -102,10 +129,10 @@ const hideModal = () => {
                       Product.length > 1 &&
                       Product.filter(
                         (el) =>
-                          el["Name"].includes(e.target.value) ||
-                          el["Category"].includes(e.target.value) 
+                          el["Name"].toLowerCase().includes(e.target.value.toLowerCase()) ||
+                          el["Category"].toLowerCase().includes(e.target.value.toLowerCase()) 
                       );
-                    console.log(data);
+                   // console.log(data);
                   }
                   setFilterDocs(data);
                   setCurrPage(1);
@@ -123,8 +150,8 @@ const hideModal = () => {
          
         </div>
 
-        <div className="table-responsive ">
-          <table className="table  table-hover">
+        <div className="table-responsive text-center main">
+          <table className="table table-hover ">
             <thead className="thead-light">
               <tr >
                 <th>Category</th>
@@ -160,24 +187,20 @@ const hideModal = () => {
                         />
                       </td>
                      <td>
-                     <button 
-                      className="btn btn-danger"
-                      type="submit"
-                     onClick={showModal}> Remove</button>
-      <Modal show={isOpen} onHide={hideModal} tabindex="-1">
-        <Modal.Header>
-          <Modal.Title>Are you sure ?</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>If you click confirm this product will be permanent deleted ... </Modal.Body>
-        <Modal.Footer>
-          <button type="button" className="btn btn-secondary" onClick={hideModal}>Cancel</button>
-          <button 
-           className="btn btn-danger"
-          onClick={() => {
-                            deleteProd(product.id);
-                          }}>Confirm</button>
-        </Modal.Footer>
-      </Modal>
+                     {deleteDialog.isLoading && (
+                            <Dialog
+                              onDialog={areUSureDelete}
+                              message={deleteDialog.message}
+                            />
+                          )}
+                          <button
+                            type="button"
+                            className="btn btn-danger"
+                            onClick={() => deleteProd(product.id)}
+                          >
+                            {" "}
+                            DELETE
+                          </button> 
                      </td>
                       
                     </tr>
@@ -205,4 +228,4 @@ const hideModal = () => {
     </div>
   );
 };
-export default Products;
+export default Product;

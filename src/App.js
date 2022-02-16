@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./Components/nav/NavBar";
 import Sidebar from "./Components/sideBar/SideBar";
 import SellersList from "./Components/sellers/SellersList";
-import Product from "./Components/products/Product";
+import Product from "./Components/products/Product ";
 import Dashboard from "./Components/dashboard/dashboard";
 import SalesData from "./Components/chart/salesData";
 import Users from "./Components/users/Users";
