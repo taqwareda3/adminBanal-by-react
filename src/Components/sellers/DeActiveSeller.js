@@ -6,11 +6,11 @@ import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSellers } from "../Store/SellerAction";
+import { deActivegetSellers } from "../Store/DeActiveSellerAc";
 import "./style.css";
 import getOrderDetails from "../Store/ProductsAction";
 import Dialog from "../Dialoge/dialog";
-const SellersList = () => {
+const DeActivegetSellers= () => {
   var show = [];
   //const [UsersDocs, setUsersDocs] = useState([]);
   const [keyword, setKeyword] = useState("");
@@ -33,7 +33,7 @@ const SellersList = () => {
     message: "",
     isLoading: false,
   });
-  const idDeleteSellerRef = useRef();
+ const idDeleteSellerRef = useRef();
   const handleDeleteDialoag = (message, isLoading) => {
     setDeleteDialog({
       message,
@@ -59,11 +59,11 @@ const SellersList = () => {
   };
 
   const dispatch = useDispatch();
-  const Users = useSelector((state) => state.seller);
+  const Users = useSelector((state) => state.deActiveSeller);
 
  
   useEffect(() => {
-    dispatch(getSellers());
+    dispatch(deActivegetSellers());
   }, []);
   useEffect(() => {
     paginate(Users);
@@ -95,17 +95,17 @@ const SellersList = () => {
 
   /************************PanStaer*****************/
   const PaneUser = (id) => {
-    handleDialoag("De Active ?", true);
+    handleDialoag("Active?", true);
     idSellerRef.current = id;
   };
   const areUSureToPane = async (choose) => {
     if (choose) {
       let updateuser = doc(db, "Seller", idSellerRef.current);
-      await updateDoc(updateuser, { IsActive: false });
+      await updateDoc(updateuser, { IsActive: true });
       if (currentDocs.length == 1 && CurrPage != 1) {
         setCurrPage(CurrPage - 1);
       }
-      dispatch(getSellers());
+      dispatch(deActivegetSellers());
       handleDialoag("", false);
     } else {
       handleDialoag("", false);
@@ -235,7 +235,7 @@ const SellersList = () => {
                             className="btn btn-warning"
                             onClick={() => PaneUser(el.id)}
                           >
-                            De Active
+                           Make Active
                           </button>
 
                            {/* {deleteDialog.isLoading && (
@@ -283,4 +283,4 @@ const SellersList = () => {
   );
 };
 
-export default SellersList;
+export default DeActivegetSellers;

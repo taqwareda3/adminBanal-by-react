@@ -6,12 +6,27 @@ import DashBoardCard from "./dashbord-card";
 import BestProducts from './bestproducts'
 import { useDispatch, useSelector } from "react-redux";
 import { getSellers } from "../Store/SellerAction";
+import { getSellersRequest } from "../Store/sellerReqAct";
+import { deActivegetSellers } from "../Store/DeActiveSellerAc";
+import { getProducts } from "../Store/productaction";
+import { getUnAccptProducts } from "../Store/unAcceptedpPrdAct";
 const DashBoard = () => {
    const dispatch = useDispatch();
   const UsersDocs=useSelector((state) => state.seller);
+  const SellerRequestDocs=useSelector((state) => state.sellerRequest);
+  const DeActiveSellerDocs=useSelector((state) => state.deActiveSeller);
+  const Products=useSelector((state) => state.product);
+  const unAccepedPrd=useSelector((state) => state.unAcceptPrd);
+  console.log(UsersDocs);
   useEffect(() => {
   dispatch(getSellers());
+  dispatch(getSellersRequest());
+  dispatch(deActivegetSellers());
+  dispatch(getProducts());
+  dispatch(getUnAccptProducts());
   }, []);
+  
+
   return (
     <div className="col main pt-5  h-100 mb-5">
       <div
@@ -34,15 +49,40 @@ const DashBoard = () => {
         <DashBoardCard
           color="success"
           to="SellersList"
-          title={"Sellers"}
+          title={"Active Sellers"}
           result={UsersDocs.length}
         />
-
-        <DashBoardCard title={"Posts"} result={87} color="warning" />
+        
+        <DashBoardCard
+          color="danger"
+          to="sellerslistdeactive"
+          title={"Un Active Sellers"}
+          result={DeActiveSellerDocs.length}
+        />
+         
+         <DashBoardCard
+          color="primary"
+          to="sellerrequest"
+          title={"Seller Request"}
+          result={SellerRequestDocs.length}
+        />
+           <DashBoardCard
+          color="success"
+          to="productlist"
+          title={"Products"}
+          result={Products.length}
+        />
+        <DashBoardCard
+          color="danger"
+          to="unacceptprd"
+          title={"Un Accepted Products"}
+          result={unAccepedPrd.length}
+        />
+        {/* <DashBoardCard title={"Posts"} result={87} color="warning" />
 
         <DashBoardCard title={"Tweets"} result={125} color="danger" />
 
-        <DashBoardCard title={"Shares"} result={36} color="primary" />
+        <DashBoardCard title={"Shares"} result={36} color="primary" /> */}
       </div>
       <hr />
 

@@ -32,7 +32,7 @@ export const Navbar = () => {
                 Products <span className="sr-only">(current)</span>
               </Link>
             </li>
-          
+
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/orders">
                 Orders <span className="sr-only">(current)</span>
@@ -46,7 +46,22 @@ export const Navbar = () => {
             </li>
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/SellersList">
-                Sellers <span className="sr-only">(current)</span>
+                Active Sellers <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" href="#" to="/sellerslistdeactive">
+                Un Active Sellers <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+                       <li className="nav-item ">
+              <Link className="nav-link" href="#" to="/sellerrequest">
+                Requests <span className="sr-only">(current)</span>
+              </Link>
+            </li>
+            <li className="nav-item ">
+              <Link className="nav-link" href="#" to="/category">
+              Categorys <span className="sr-only">(current)</span>
               </Link>
             </li>
             <li className="nav-item ">
@@ -54,6 +69,7 @@ export const Navbar = () => {
                 Sales <span className="sr-only">(current)</span>
               </Link>
             </li>
+            
           </ul>
         </div>
       </div>

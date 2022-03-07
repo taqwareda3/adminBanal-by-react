@@ -88,8 +88,7 @@ const Users = () => {
               className="form-control"
               value={search}
               placeholder="What Do You Want ?"
-              type="text"
-              onChange={(e) => {
+                  onChange={(e) => {
 
                 setSearch(e.target.value)
                 console.log(e.target.value);

@@ -10,11 +10,16 @@ import UserDetails from "./Components/users/userDetails";
 import Orders from "./Components/orders/orders";
 // import Footer from "./Components/footer/footer";
 import Products from "./Components/orders/Orderdetails";
-
+import SellerRequest from "./Components/requests/sellerRequest";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Welcom from "./Components/welcomePage/Welcom";
 import SellerDetails from "./Components/sellers/SellersDetails";
 import Sales from "./Components/sales/sales "
+import DeActivegetSellers from "./Components/sellers/DeActiveSeller"
+import Category from "./Components/Category/category"
+import { AddToCategory } from "./Components/Store/AddCategoryAction";
+import ProductsList from "./Components/product/product";
+import UnAcceptProductsList from "./Components/product/unAcceptPrd";
 
 function App() {
   return (
@@ -28,13 +33,18 @@ function App() {
           <div className="col-lg-9">
             <Switch>
               <Route path="/SellersList" component={SellersList} />
+              <Route path="/sellerslistdeactive" component={DeActivegetSellers} />
               <Route path="/Products" component={Product} />
               <Route path="/Sales" component={Sales} />
               <Route path="/Users" component={Users} />
               <Route path="/userDetails" component={UserDetails}/>
               <Route path="/dashboard" component={Dashboard} />
               <Route path="/orders" component={Orders} />
-
+              <Route path="/sellerrequest" component={SellerRequest} />
+              <Route path="/category" component={Category} />
+              <Route path="/addcategory" component={AddToCategory} />
+              <Route path="/productlist" component={ProductsList}/>
+              <Route path="/unacceptprd" component={UnAcceptProductsList}/>
               <Route path="/orderDetails" component={Products} />
               <Route path="/SellerDetails" component={SellerDetails} />
               <Route path='/salesDetails' component={SalesData}/>
