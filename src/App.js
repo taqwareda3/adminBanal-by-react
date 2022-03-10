@@ -20,6 +20,7 @@ import Category from "./Components/Category/category"
 import { AddToCategory } from "./Components/Store/AddCategoryAction";
 import ProductsList from "./Components/product/product";
 import UnAcceptProductsList from "./Components/product/unAcceptPrd";
+import ClientData from "./Components/Clientata/clientdata";
 
 function App() {
   return (
@@ -45,9 +46,10 @@ function App() {
               <Route path="/addcategory" component={AddToCategory} />
               <Route path="/productlist" component={ProductsList}/>
               <Route path="/unacceptprd" component={UnAcceptProductsList}/>
-              <Route path="/orderDetails" component={Products} />
+              <Route path="/orderDetails/:id" component={Products} />
               <Route path="/SellerDetails" component={SellerDetails} />
               <Route path='/salesDetails' component={SalesData}/>
+              <Route path='/client/:id' component={ClientData}/>
               <Route path="" component={Welcom} />
               
             </Switch>
