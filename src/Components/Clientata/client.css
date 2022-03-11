@@ -1,0 +1,14 @@
+.head{
+border-bottom: 1px solid #ffff;
+text-align: center;
+}
+.client{
+    width: fit-content;
+    background-color: #34495e;
+    float: left;
+}
+.contain{
+    display: flex;
+    justify-content: space-between;
+}
+table{float: right;}
