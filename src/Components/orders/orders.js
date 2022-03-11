@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import getOrders from "../Store/OrdersAction";
-import getOrderDetails from "../Store/ProductsAction";
 import "./orders.css";
 const Orders = () => {
   const [filterOrders, setfilterOrders] = useState([]);
@@ -24,7 +23,7 @@ const Orders = () => {
   //*******************************************/
   const senddata = (prds) => {
     console.log(prds);
-    dispatch(getOrderDetails(prds));
+    //dispatch(getOrderDetails(prds));
   };
   const clear = () => {
     console.log(";lkjhgf");
@@ -105,10 +104,10 @@ const Orders = () => {
           class="btn-check "
           onClick={() => Filterstat(true)}
           name="options-outlined"
-          id="primary-outlined"
+          id="secondary-outlined"
           autocomplete="off"
         />
-        <label class="btn btn-outline-Primary mx-2" for="success-outlined">
+        <label class="btn btn-outline-Primary mx-2" for="secondary-outlined">
           Completed
         </label>
 
@@ -117,10 +116,10 @@ const Orders = () => {
           onClick={() => Filterstat(false)}
           class="btn-check"
           name="options-outlined"
-          id="primary-outlined"
+          id="prmary-outlined"
           autocomplete="off"
         />
-        <label class="btn btn-outline-primary mx-2" for="danger-outlined">
+        <label class="btn btn-outline-primary mx-2" for="prmary-outlined">
           Not Completed
         </label>
         <input

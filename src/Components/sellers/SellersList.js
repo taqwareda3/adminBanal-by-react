@@ -194,6 +194,7 @@ const SellersList = () => {
               </div>
             ) : (
               currentDocs.map((el) => {
+              {  console.log(el.id);}
                 return (
                   <>
                     <tr key={el.id}>
@@ -214,9 +215,9 @@ const SellersList = () => {
                           aria-label="Basic mixed styles example"
                         >
                           <Link
-                            to="/SellerDetails"
+                            to={`/SellerDetails/${el.id}`}
                             className="text-danger"
-                            onClick={() => senddata(el.Products)}
+                            // onClick={() => senddata(el.Products)}
                           >
                             <button type="button" className="btn btn-primary">
                               show products
