@@ -26,17 +26,19 @@ const Orders = () => {
     console.log(prds);
     dispatch(getOrderDetails(prds));
   };
+  const clear = () => {
+    console.log(";lkjhgf");
+    setfilterOrders([...updateOrders]);
+  };
   const [selectedDate, setselectedDate] = useState(new Date());
   const dispatch = useDispatch();
   let Orders = useSelector((state) => state.orders);
   //////////search by username////////////
-  const [search, setSearch] = useState([]);
+
   const [updateOrders, setupdateOrders] = useState([]);
 
   ///////////
   const paginate = (items) => {
-    let startOf;
-    let endOf;
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(items.length / itemPerPage); i++) {
       pageNumbers.push(i);
@@ -47,6 +49,11 @@ const Orders = () => {
     const date = selecteddate.toLocaleString("en").split(",")[0];
 
     setfilterOrders([...updateOrders.filter((order) => order["date"] == date)]);
+  };
+  const Filterstat = (word) => {
+    setfilterOrders([
+      ...updateOrders.filter((order) => order["status"] == word),
+    ]);
   };
   var numEGP = new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -82,8 +89,9 @@ const Orders = () => {
           <h5 className="mt-3 mb-3 text-secondary">Search By Date</h5>
         </div>
 
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center justify-content-between">
           <Datepicker
+          className="date"
             onSelect={(selecteddate) => {
               SearchByDate(selecteddate);
             }}
@@ -91,8 +99,44 @@ const Orders = () => {
             onChange={(date) => setselectedDate(date)}
             maxDate={new Date()}
           />
+          <div>
+          <input
+          type="radio"
+          class="btn-check "
+          onClick={() => Filterstat(true)}
+          name="options-outlined"
+          id="primary-outlined"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-Primary mx-2" for="success-outlined">
+          Completed
+        </label>
+
+        <input
+          type="radio"
+          onClick={() => Filterstat(false)}
+          class="btn-check"
+          name="options-outlined"
+          id="primary-outlined"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-primary mx-2" for="danger-outlined">
+          Not Completed
+        </label>
+        <input
+          type="radio"
+          onClick={()=>clear()}
+          class="btn-check"
+          name="options-outlined"
+          id="warning-outlined"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-warning" for="warning-outlined">
+          Reset
+        </label>
+          </div>
         </div>
-        <div className="col-md-10">
+        {/* <div className="col-md-10">
           <div className="search">
             <i className="fa fa-search"></i>
             <input
@@ -109,7 +153,8 @@ const Orders = () => {
         </div>
         <button className="btn btn-primary ta col-lg-2" placeholder="searh">
           search
-        </button>
+            </button> */}
+       
         <table className="rwd-table">
           <thead>
             <tr>
@@ -123,50 +168,41 @@ const Orders = () => {
             </tr>
           </thead>
           {console.log(currentDocs)}
-          {currentDocs
-            .filter((val) => {
-              if (search == "") return filterOrders;
-              else if (
-                val.firstname.toLowerCase().includes(search.toLowerCase())
-              ) {
-                return val;
-              }
-            })
-            .map((order, index) => {
-              return (
-                <tbody key={index}>
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{numEGP.format(order.Total)}</td>
-                    <td>
-                      {order.status ? (
-                        <span className="bg-success p-1 rounded">Completed</span>
-                      ) : (
-                        <span className="bg-primary p-1 rounded">
-                          Not Completed...
-                        </span>
-                      )}
-                    </td>
-                    <td>
-                      <Link to={`/client/${order.buyer}`}>
-                        <a className="pointer">{order.buyer.substr(0, 7)}</a>
-                      </Link>
-                    </td>
-                    <td>{order.date}</td>
-                    <td>
-                      <Link to={`/orderDetails/${order.id}`}>
-                        <button
-                          onClick={() => senddata(order.Product)}
-                          className="btn text-white fw-bold orange"
-                        >
-                          show details
-                        </button>
-                      </Link>
-                    </td>
-                  </tr>
-                </tbody>
-              );
-            })}
+          {currentDocs.map((order, index) => {
+            return (
+              <tbody key={index}>
+                <tr key={index}>
+                  <td>{index + 1}</td>
+                  <td>{numEGP.format(order.Total)}</td>
+                  <td>
+                    {order.status ? (
+                      <span className="bg-success p-1 rounded">Completed</span>
+                    ) : (
+                      <span className="bg-primary p-1 rounded">
+                        Not Completed...
+                      </span>
+                    )}
+                  </td>
+                  <td>
+                    <Link to={`/client/${order.buyer}`}>
+                      <a className="pointer">{order.buyer.substr(0, 7)}</a>
+                    </Link>
+                  </td>
+                  <td>{order.date}</td>
+                  <td>
+                    <Link to={`/orderDetails/${order.id}`}>
+                      <button
+                        onClick={() => senddata(order.Product)}
+                        className="btn text-white fw-bold orange"
+                      >
+                        show details
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              </tbody>
+            );
+          })}
         </table>
       </div>
 
