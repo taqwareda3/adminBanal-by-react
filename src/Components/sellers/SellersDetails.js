@@ -20,8 +20,7 @@ const SellerDetails = () => {
     );
 
     const Orders = await getDocs(OrdersCollectionRef);
-    //console.log(Orders);
-   // Orders.docs.map((doc) => console.log("lll"+doc.data()));
+
     const alldata = Orders.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
