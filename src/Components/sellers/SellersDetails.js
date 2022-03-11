@@ -30,12 +30,7 @@ const SellerDetails = () => {
     setSellerProducts(e))}, []);
   return (
     <>
-      <div className=" table-responsive datatable-custom">
-
-     const products = useSelector((state) => state.products);
-     console.log(products);
-     return ( 
-     <>
+    
      
       <div className=" table-responsive datatable-custom" >
        

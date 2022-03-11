@@ -22,7 +22,7 @@ export default combineReducers({
     seller:SellersReducer,
 
    
-    user:usersReducer
+    user:usersReducer,
 
     deActiveSeller:DeActiveSellersReducer,
     sellerRequest:SellersRequestReducer,
