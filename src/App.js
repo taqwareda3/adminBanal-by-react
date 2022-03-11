@@ -28,10 +28,10 @@ function App() {
       <Router>
         <Navbar />
 
-        <div className="row">
-          <Sidebar className="col-lg-3 fixed" />
+        <div className="row contain">
+          {/* <Sidebar className="col-lg-3 fixed" /> */}
 
-          <div className="col-lg-9">
+          <div className="col-12">
             <Switch>
               <Route path="/SellersList" component={SellersList} />
               <Route path="/sellerslistdeactive" component={DeActivegetSellers} />
@@ -47,7 +47,7 @@ function App() {
               <Route path="/productlist" component={ProductsList}/>
               <Route path="/unacceptprd" component={UnAcceptProductsList}/>
               <Route path="/orderDetails/:id" component={Products} />
-              <Route path="/SellerDetails" component={SellerDetails} />
+              <Route path="/SellerDetails/:id" component={SellerDetails} />
               <Route path='/salesDetails' component={SalesData}/>
               <Route path='/client/:id' component={ClientData}/>
               <Route path="" component={Welcom} />
