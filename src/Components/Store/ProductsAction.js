@@ -1,9 +1,7 @@
 import { db } from "../firebase-config";
 import {
   collection,
-  doc,
   documentId,
-  getDoc,
   getDocs,
   query,
   where,
@@ -27,30 +25,10 @@ const getProducts = async (products) => {
 
   return alldata;
 };
-const getProds = async (id) => {
-  const q = query(collection(db, "Orders"), where(documentId(), "==", id));
-  const result = await getDocs(q);
-
-  const data = result.docs.map((e) => ({ ...e.data() }));
-
-  let refs = data[0].Product.map((e) => {
-    return e.Product_Id.id;
-  });
-  const q2 = query(collection(db, "Products"), where(documentId(), "in", refs));
-  const result2 = await getDocs(q2);
-  const data2 = result2.docs.map((e) => ({ ...e.data() }));
-
-  const alldata = data[0].Product.map((e, index) => ({
-    ...e,
-    ...data2[index],
-  }));
-  console.log(alldata);
-  return alldata;
-};
 
 function getOrderDetails(products) {
   return (dispatch) => {
-    getProds(products)
+    getProducts(products)
       .then((prds) => dispatch({ type: "GET_PRODUCTS", payload: prds }))
       .catch((err) => {
         console.log(err);
