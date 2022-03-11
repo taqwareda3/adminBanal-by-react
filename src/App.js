@@ -38,7 +38,10 @@ function App() {
               <Route path="/Products" component={Product} />
               <Route path="/Sales" component={Sales} />
               <Route path="/Users" component={Users} />
-             <Route path="/userDetails" component={UserDetails}/>
+
+              <Route path="/userDetails" component={UserDetails}/>
+
+
               <Route path="/dashboard" component={Dashboard} />
 
               <Route path="/orders" component={Orders} />
