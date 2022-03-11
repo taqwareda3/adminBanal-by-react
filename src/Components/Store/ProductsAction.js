@@ -7,8 +7,8 @@ import {
   where,
 } from "firebase/firestore";
 
-import "firebase/database";
 const getProducts = async (products) => {
+  console.log(products);
   const productsIds = products.map((id) =>
     id.Product_Id.id.replace(/\s+/g, "")
   );

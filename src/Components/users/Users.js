@@ -360,6 +360,7 @@ const Users = () => {
   };
   return (
     <>
+
       {console.log(pages)}
       <div className="container-fluid">
         <div className="row height d-flex justify-content-center align-items-center mt-5">
@@ -402,6 +403,31 @@ const Users = () => {
               />{" "}
               <button className="btn btn-primary">Search</button>{" "}
             </div>
+
+      {/* <div className="item-list">
+      {User.map((item) => {
+        return <li item={item} key={item.id} >{item.email}</li>
+      })}
+    </div> */}
+      <div className="row height d-flex justify-content-center align-items-center mt-5 mb-5 ">
+        <div className="col-md-8">
+          <div className="search">
+
+            <i className="fa fa-search"></i>
+            <input
+              type="text"
+              className="form-control"
+              value={search}
+              placeholder="What Do You Want ?"
+                  onChange={(e) => {
+
+                setSearch(e.target.value)
+                console.log(e.target.value);
+              }}
+
+
+            />
+
           </div>
         </div>
         <div className="table-responsive text-center main">

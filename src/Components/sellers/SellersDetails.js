@@ -9,7 +9,7 @@ const SellerDetails = () => {
      
       <div className=" table-responsive datatable-custom" >
        
-        <Link to="/SellersList">  <button className="btn btn-success float-end my-2">Back</button></Link>
+        {/* <Link to="/SellersList">  <button className="btn btn-success float-end my-2">Back</button></Link> */}
         <div className="table-responsive text-center main">
           <table className="table table-light table-striped mt-5">
             <thead className="text-center">

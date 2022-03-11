@@ -1,6 +1,25 @@
+table td {
+  text-align: center;
+}
 .orderimg {
   width: 5rem;
 }
 .orange {
   background-color: #ff9900;
 }
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #ffff;
+}
+a:hover {
+  color: #ff9900;
+}
+.select {
+  padding: 6px;
+
+  border-radius: 10px;
+  font-weight: bold;
+  color: #ff9900;;
+}
+.react-datepicker-wrapper{width: 0;}

@@ -1,0 +1,218 @@
+import { Firestore, updateDoc } from "firebase/firestore";
+import { useEffect, useRef, useState } from "react";
+import { db } from "./../firebase-config";
+import "firebase/database";
+import { collection, doc, getDocs, deleteDoc } from "firebase/firestore";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSellersRequest } from "../Store/sellerReqAct";
+import "../sellers/style.css";
+import Dialog from "../Dialoge/dialog";
+const SellerRequest = () => {
+  const [keyword, setKeyword] = useState("");
+  const [FilterDocs, setFilterDocs] = useState([]);
+  const [itemPerPage, setItemPerPage] = useState(2);
+  const [pages, setPages] = useState([]);
+  const [CurrPage, setCurrPage] = useState(1);
+  const [dialog, setDialog] = useState({
+    message: "",
+    isLoading: false,
+  });
+  const idSellerRef = useRef();
+  const handleDialoag = (message, isLoading) => {
+    setDialog({
+      message,
+      isLoading,
+    });
+  };
+
+  /********Pagination*********/ 
+  const indexOfLastSeller = CurrPage * itemPerPage;
+  const indexOfFirstSeller = indexOfLastSeller - itemPerPage;
+  const currentDocs = FilterDocs.slice(indexOfFirstSeller, indexOfLastSeller);
+
+//**************************Search*****************/
+const goToPage = (page) => {
+     console.log("click pge", page);
+     setCurrPage(page);
+   };
+ 
+   
+   const dispatch = useDispatch();
+   const Users = useSelector((state) => state.sellerRequest);
+ 
+  
+   useEffect(() => {
+     dispatch(getSellersRequest());
+   }, []);
+   useEffect(() => {
+     paginate(Users);
+     setFilterDocs(Users);
+   }, [Users]);
+ ///////////***************Accept*********************** *////////////
+   const AcceptUser = (id) => {
+     handleDialoag("Accept Seller ?", true);
+     idSellerRef.current = id;
+   };
+   const areUSureToPane = async (choose) => {
+     if (choose) {
+       let updateuser = doc(db, "Seller", idSellerRef.current);
+       await updateDoc(updateuser, { IsNew: false });
+       if (currentDocs.length == 1 && CurrPage != 1) {
+         setCurrPage(CurrPage - 1);
+       }
+       dispatch(getSellersRequest());
+       handleDialoag("", false);
+     } else {
+       handleDialoag("", false);
+     }
+   };
+////////////////////*******Pagination**********/////////////// /
+   const paginate = (items) => {
+     let startOf;
+     let endOf;
+     const pageNumbers = [];
+     for (let i = 1; i <= Math.ceil(items.length / itemPerPage); i++) {
+       pageNumbers.push(i);
+     }
+     setPages(pageNumbers);
+   };
+  return (<>{console.log(pages)}
+  <div className="container-fluid">
+    <div className="row height d-flex justify-content-center align-items-center mt-5">
+      <div className="col-md-8">
+        <div className="search">
+          {" "}
+          <i className="fa fa-search"></i>{" "}
+          <input
+            type="text"
+            className="form-control"
+            value={keyword}
+            placeholder="What Do You Want ?"
+            onChange={(e) => {
+              // console.log("e",e)
+              setKeyword(e.target.value);
+              console.log(e.target.value);
+              // setKeyword(e.target.value);
+              let data = Users;
+
+              console.log(data);
+              let newdata;
+              if (e.target.value) {
+                data =
+                  Users &&
+                  Users.length > 1 &&
+                  Users.filter(
+                    (el) =>
+                      el["FirstName"].includes(e.target.value) ||
+                      el["LastName"].includes(e.target.value) ||
+                      el["Phone"].includes(e.target.value) ||
+                      el["Email"].includes(e.target.value)
+                  );
+                //  console.log("data",filtered);
+              }
+              console.log(data);
+              setFilterDocs(data);
+              setCurrPage(1);
+              paginate(data);
+            }}
+          />{" "}
+          <button className="btn btn-primary">Search</button>{" "}
+        </div>
+      </div>
+    </div>
+    <div className="table-responsive text-center main">
+      <table className="table table-dark table-striped mt-5">
+        <thead>
+          <tr>
+            <th scope="col-2">First Name</th>
+            <th scope="col-2">Last Name</th>
+            <th scope="col-2">Phone</th>
+            <th scope="col-2">Email</th>
+            <th scope="col-2">CompanyName</th>
+            <th scope="col-2">City </th>
+            <th scope="col-2">Street </th>
+            <th scope="col-2">Build Number</th>
+            <th scope="col-2">Accept</th>
+          
+          </tr>
+        </thead>
+       
+        {console.log(currentDocs.length)}
+        {currentDocs.length == 0 ? (
+          <div
+            class="alert alert-danger fs-1 text-center m-auto "
+            role="alert"
+          >
+            You Have NO Sellers
+          </div>
+        ) : (
+          currentDocs.map((el) => {
+            return (
+              <>
+                <tr key={el.id}>
+                  {/* <th scope="row">1</th> */}
+                  <td>{el.FirstName}</td>
+                  <td>{el.LastName}</td>
+                  <td>{el.Phone}</td>
+                  <td>{el.Email}</td>
+                  <td>{el.CompanyName}</td>
+                  <td>{el.Address.City}</td>
+                  <td>{el.Address.Street}</td>
+                  <td>{el.Address.BulNo}</td>
+                 
+                  <td>
+                    <div
+                      className="btn-group"
+                      role="group"
+                      aria-label="Basic mixed styles example"
+                    >
+                    
+                      {dialog.isLoading && (
+                        <Dialog
+                          onDialog={areUSureToPane}
+                          message={dialog.message}
+                        />
+                      )}
+
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        onClick={() => AcceptUser(el.id)}
+                      >
+                        Accept
+                      </button>
+
+
+                    
+                    </div>
+                  </td>
+                </tr>
+              </>
+            );
+          })
+        )}
+      </table>
+    </div>
+    <div className="d-flex justify-content-center align-items-center">
+      <nav aria-label="Page navigation  example">
+        <ul className="pagination cursor pagination pagination-lg">
+          {pages &&
+            pages.length > 1 &&
+            pages.map((el) => (
+              <li className={`page-item ${CurrPage == el ? "active" : ""}`}>
+                <a class="page-link" onClick={() => goToPage(el)}>
+                  {el}
+                </a>
+              </li>
+            ))}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</>
+  )
+};
+
+export default SellerRequest;
