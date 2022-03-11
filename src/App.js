@@ -38,8 +38,9 @@ function App() {
               <Route path="/Products" component={Product} />
               <Route path="/Sales" component={Sales} />
               <Route path="/Users" component={Users} />
-              <Route path="/userDetails" component={UserDetails}/>
+              {/* <Route path="/userDetails" component={UserDetails}/>
               <Route path="/dashboard" component={Dashboard} />
+
               <Route path="/orders" component={Orders} />
               <Route path="/sellerrequest" component={SellerRequest} />
               <Route path="/category" component={Category} />
@@ -47,6 +48,7 @@ function App() {
               <Route path="/productlist" component={ProductsList}/>
               <Route path="/unacceptprd" component={UnAcceptProductsList}/>
               <Route path="/orderDetails/:id" component={Products} />
+
               <Route path="/SellerDetails" component={SellerDetails} />
               <Route path='/salesDetails' component={SalesData}/>
               <Route path='/client/:id' component={ClientData}/>
