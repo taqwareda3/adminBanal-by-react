@@ -30,7 +30,7 @@ const OrderItem = (props) => {
 
         <td> {props.quantity}</td>
         <td>{props.category}</td>
-        <td>{props.date}</td>
+        
         <td>
           <div>
             <select className="select"

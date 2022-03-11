@@ -5,16 +5,25 @@ import ProductsReducer from "./ProductsReducer"
 import SellersReducer from "./SellerReducer";
 import DeActiveSellersReducer from "./DeActiveSellerRed";
 import BestProducts from "./BestProductsReducer";
+
+ import usersReducer from "./userReducer";
+ 
+import ProductReducer from "./productreducer";
+
 import SellersRequestReducer from "./sllerReqreducer";
 import CategoryReducer from "./CategoryReducer";
 import AddCategoryReducer from "./AddCatReducer";
-import ProductReducer from "./productreducer";
 import unAcceptProductReducer from "./unAcceptedPrdRed";
+
 export default combineReducers({
     order_details:OrderDetailsReducer,
     orders:OrdersReducer,
     products:ProductsReducer,
     seller:SellersReducer,
+
+   
+    user:usersReducer
+
     deActiveSeller:DeActiveSellersReducer,
     sellerRequest:SellersRequestReducer,
     product:ProductReducer,
@@ -22,4 +31,5 @@ export default combineReducers({
     best_products:BestProducts,
     category:CategoryReducer,
     AddCategory:AddCategoryReducer
+
 })
