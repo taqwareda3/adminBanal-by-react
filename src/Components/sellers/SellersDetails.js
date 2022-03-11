@@ -2,6 +2,36 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "./style.css";
 const SellerDetails = () => {
+
+  const products = useSelector((state) => state.products);
+  console.log(products);
+  const[sellerProducts,setSellerProducts]=useState([])
+  const { id } = useParams();
+  console.log(id);
+  const getSellerProducts = async (id) => {
+  //  console.log(id);
+   // console.log(doc(db, `seller/${id}`));
+    const OrdersCollectionRef = query(
+      collection(db, "Products"),
+       where("SellerID", "==", doc(db, `Seller/${id}`))
+    );
+
+    const Orders = await getDocs(OrdersCollectionRef);
+
+    const alldata = Orders.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+   // console.log(alldata);
+    return alldata;
+  };
+ 
+  useEffect(() => { getSellerProducts(id).then(e=>
+    setSellerProducts(e))}, []);
+  return (
+    <>
+      <div className=" table-responsive datatable-custom">
+
      const products = useSelector((state) => state.products);
      console.log(products);
      return ( 
@@ -9,6 +39,7 @@ const SellerDetails = () => {
      
       <div className=" table-responsive datatable-custom" >
        
+
         {/* <Link to="/SellersList">  <button className="btn btn-success float-end my-2">Back</button></Link> */}
         <div className="table-responsive text-center main">
           <table className="table table-light table-striped mt-5">
