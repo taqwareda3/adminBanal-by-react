@@ -52,7 +52,7 @@ function App() {
               <Route path="/unacceptprd" component={UnAcceptProductsList}/>
               <Route path="/orderDetails/:id" component={Products} />
 
-              <Route path="/SellerDetails" component={SellerDetails} />
+              <Route path="/SellerDetails/:id" component={SellerDetails} />
               <Route path='/salesDetails' component={SalesData}/>
               <Route path='/client/:id' component={ClientData}/>
               <Route path="" component={Welcom} />

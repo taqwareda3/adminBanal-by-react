@@ -214,9 +214,9 @@ const SellersList = () => {
                           aria-label="Basic mixed styles example"
                         >
                           <Link
-                            to="/SellerDetails"
+                            to={`/SellerDetails/${el.id}`}
                             className="text-danger"
-                            onClick={() => senddata(el.Products)}
+                           
                           >
                             <button type="button" className="btn btn-primary">
                               show products
