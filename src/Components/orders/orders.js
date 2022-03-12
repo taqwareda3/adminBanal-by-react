@@ -91,7 +91,7 @@ const Orders = () => {
 
         <div className="d-flex align-items-center justify-content-between">
           <Datepicker
-          className="date"
+            className="date"
             onSelect={(selecteddate) => {
               SearchByDate(selecteddate);
             }}
@@ -100,61 +100,43 @@ const Orders = () => {
             maxDate={new Date()}
           />
           <div>
-          <input
-          type="radio"
-          class="btn-check "
-          onClick={() => Filterstat(true)}
-          name="options-outlined"
-          id="primary-outlined"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-Primary mx-2" for="success-outlined">
-          Completed
-        </label>
-
-        <input
-          type="radio"
-          onClick={() => Filterstat(false)}
-          class="btn-check"
-          name="options-outlined"
-          id="primary-outlined"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-primary mx-2" for="danger-outlined">
-          Not Completed
-        </label>
-        <input
-          type="radio"
-          onClick={()=>clear()}
-          class="btn-check"
-          name="options-outlined"
-          id="warning-outlined"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-warning" for="warning-outlined">
-          Reset
-        </label>
-          </div>
-        </div>
-        {/* <div className="col-md-10">
-          <div className="search">
-            <i className="fa fa-search"></i>
             <input
-              type="text"
-              className="form-control"
-              value={search}
-              placeholder="who user you want ?"
-              onChange={(e) => {
-                setSearch(e.target.value);
-                // console.log( e.target.value);
-              }}
+              type="radio"
+              class="btn-check "
+              onClick={() => Filterstat(true)}
+              name="options-outlined"
+              id="primary-outlined"
+              autocomplete="off"
             />
+            <label class="btn btn-outline-Primary mx-2" for="primary-outlined">
+              Completed
+            </label>
+
+            <input
+              type="radio"
+              onClick={() => Filterstat(false)}
+              class="btn-check"
+              name="options-outlined"
+              id="danger-outlined"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary mx-2" for="danger-outlined">
+              Not Completed
+            </label>
+            <input
+              type="radio"
+              onClick={() => clear()}
+              class="btn-check"
+              name="options-outlined"
+              id="warning-outlined"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-warning" for="warning-outlined">
+              Reset
+            </label>
           </div>
         </div>
-        <button className="btn btn-primary ta col-lg-2" placeholder="searh">
-          search
-            </button> */}
-       
+
         <table className="rwd-table">
           <thead>
             <tr>
