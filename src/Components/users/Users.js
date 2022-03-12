@@ -446,11 +446,6 @@ const Users = () => {
                                     show details
                                   </button>
                                 </Link>
-
-                             
-
-                              
-                             
                               </div>
                             </td>
                           </tr>
@@ -483,10 +478,6 @@ const Users = () => {
           </div>
         </div>
       </div>
-      </div>
-      </div>
-      </div>
-    
     </>
   );
 };
