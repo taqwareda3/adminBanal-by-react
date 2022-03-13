@@ -1,16 +1,23 @@
 import { connect } from "react-redux";
 
 const CreateCategory = () => {
-     category={
-          name:''
+   var  category={
+          name:'',
+          NameAr:''
      }
-handleChange=(e)=>{
+let handleChangeEN=(e)=>{
    e.preventDefult();
      this.category({
-          [e.target.value]:e.target.value
+          [e.target.value]:category.name
      })
 }
-handleSubmit=(e)=>{
+let handleChangeAR=(e)=>{
+     e.preventDefult();
+       this.category({
+            [e.target.value]:category.NameAr
+       })
+  }
+let handleSubmit=(e)=>{
      e.preventDefult();
      this.props.CreateCategory(this.category) 
 }
@@ -18,8 +25,10 @@ handleSubmit=(e)=>{
      <form onSubmit={this.handleSubmit} className="white">
       <h5 className="grey-text text-darken-3">Add New Cateqory</h5>
       <div className="input-field">
-      <label htmlFor="name">name</label>
-      <input type="text" id="name" onChange={this.handleChange}/>
+      <label htmlFor="name">name in English</label>
+      <input type="text" id="nameEN" onChange={this.handleChangeEN}/>
+      <label htmlFor="name">name in Arabic</label>
+      <input type="text" id="nameAR" onChange={this.handleChangeAR}/>
       </div>
      </form>
      </> );
