@@ -75,7 +75,7 @@ const Sales = () => {
       </div>
      
       <div class="col-lg-6 col-5 col-sm-6 py-2">
-        <Link to="/salesDetails" style={{ textDecoration: 'none' }}>
+        <Link to="/salesDetails" style={{textDecoration: 'none' }}>
         <div class="card text-white ">
           <div class="card-body bg-secondary">
             <div className="row">
