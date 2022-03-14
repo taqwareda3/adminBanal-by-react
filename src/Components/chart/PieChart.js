@@ -83,7 +83,7 @@ export const PieChart = ({Date, Sales}) => {
   return (
       <div>
           <div className="card">
-              <h5>Basic</h5>
+              <h5>Daily Sales </h5>
               <Chart type="bar" data={basicData} options={basicOptions} />
           </div>
 
