@@ -2,8 +2,9 @@
 import React, {useState, useEffect } from "react";
 import {db} from "./../firebase-config";
 import { collection, getDocs, where, query, addDoc, orderBy } from "firebase/firestore";
+import { PieChart } from "./PieChart";
 
-const SalesData = () => {
+ const SalesData = () => {
 
     const [data, setData] = useState([]);
     const [sales, setSales] = useState([]);
@@ -24,7 +25,7 @@ const SalesData = () => {
         const data = await getDocs(dataRef);
         data.map((index)=>{
             var dates = index.Date
-      
+           
             var sales = index.Sales;
             
         })
@@ -48,16 +49,21 @@ const SalesData = () => {
        let Sales=ST
        const payload = {Date, Sales}
        addDoc(dayRef,payload);
+       
      }
 useEffect(() => {
     getDocs(dataRef).then((Daily_Sales) => {
         setData(Daily_Sales.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       getDate();
+   
+       
     });
     getDocs(ordersRef).then((Orders)=>{
       setSales(Orders.docs.map((doc)=>({...doc.data(),id:doc.id})))
       getTotals();
+    
     })
+
   }, [ST]);
     return(
         <>
@@ -65,7 +71,7 @@ useEffect(() => {
             <div className="col-6 h3 text-center my-2"><p>current sales</p></div>
         </div>
                 <div className="row  d-flex justify-content-center my-2">
-
+                  
                 <div  className="col-6 h4">
                 <table className="table table-hover table-striped">
                 <thead>
@@ -77,6 +83,8 @@ useEffect(() => {
                 <tbody>
                  {
                   data.map((data) =>{
+                    /**/
+                    
                       return( 
                       <tr>
                           
@@ -89,7 +97,7 @@ useEffect(() => {
               </table>
               </div>
               </div>
-              <button onClick={()=>test()}>test</button>
+              <button onClick={()=>test()}>add new day</button>
         </>
     )
 }

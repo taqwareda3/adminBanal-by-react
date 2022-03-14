@@ -3,11 +3,13 @@ import { db } from "./../firebase-config";
 import {firestore, collection, getDocs, doc, query, where, addDoc, } from "firebase/firestore";
 import Select from "react-select";
 import { Link } from "react-router-dom";
+import { PieChart } from "../chart/PieChart";
 // import './sales.css'
 
-const Sales = () => {
 
-  const [sales, setSales] = useState([]);
+const Sales = () => {
+ 
+    const [sales, setSales] = useState([]);
   const [profit, setProfit] = useState("");
 
   const [ST, setST] = useState("");
@@ -23,7 +25,7 @@ const Sales = () => {
         
       sales.map((index) => {
       console.log(index.Total)
-      var profits = parseInt(index.Total) * 0.1
+      var profits = parseFloat(index.Total) * 0.1
       totalsales += parseInt(index.Total)
       totalprofit += profits
      
@@ -50,11 +52,15 @@ const Sales = () => {
 
 
   return (
-   
+   <div className="row my-5 d-flex justify-content-center">
+     <div className="row">
+       <PieChart/>
+     </div>
     <div className="row my-5 d-flex justify-content-center">
+      
       <div class="col-lg-4 col-5 col-sm-6 py-2">
-        <div class="card text-white bg-danger h-100">
-          <div class="card-body bg-danger">
+        <div class="card text-white h-100">
+          <div class="card-body bg-success bg-obacity-25">
             <div className="row">
               <div className="col-lg-2 col-12">
                 <i class="fas fa-percent fa-4x"></i>
@@ -73,7 +79,7 @@ const Sales = () => {
       <div class="col-lg-4 col-5 col-sm-6 py-2">
         <Link to="/salesDetails" style={{ textDecoration: 'none' }}>
         <div class="card text-white  h-100">
-          <div class="card-body bg-success">
+          <div class="card-body bg-secondary">
             <div className="row">
               <div className="col-lg-3 col-12">
                 <i class="fas fa-money-bill-wave-alt fa-4x"></i>
@@ -92,7 +98,7 @@ const Sales = () => {
 
     </div>
 
-
+    </div>
   )
 }
 
