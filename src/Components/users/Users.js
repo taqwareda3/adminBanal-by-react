@@ -223,6 +223,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../Store/userAction";
+import'./../style/style.css'
 // import "./style.css";
 import getOrderDetails from "../Store/ProductsAction";
 import Dialog from "../Dialoge/dialog";
@@ -335,7 +336,7 @@ const Users = () => {
   return (
     <>
       {console.log(pages)}
-      <div className="container-fluid">
+      <div className="">
         <div className="row height d-flex justify-content-center align-items-center mt-5">
           <div className="col-md-8">
             <div className="search">
@@ -347,10 +348,10 @@ const Users = () => {
                 value={keyword}
                 placeholder="What Do You Want ?"
                 onChange={(e) => {
-                  // console.log("e",e)
+                  console.log("e", e)
                   setKeyword(e.target.value);
                   console.log(e.target.value);
-                  // setKeyword(e.target.value);
+                  setKeyword(e.target.value);
                   let data = Users;
 
                   console.log(data);
@@ -376,36 +377,23 @@ const Users = () => {
               />{" "}
               <button className="btn btn-primary">Search</button>{" "}
             </div>
+            </div>
 
             {/* <div className="item-list">
       {User.map((item) => {
         return <li item={item} key={item.id} >{item.email}</li>
       })}
     </div> */}
-            <div className="row height d-flex justify-content-center align-items-center mt-5 mb-5 ">
-              <div className="col-md-8">
-                <div className="search">
-                  <i className="fa fa-search"></i>
-                  <input
-                    type="text"
-                    className="form-control"
-                    // value={search}
-                    placeholder="What Do You Want ?"
-                    onChange={(e) => {
-                      // setSearch(e.target.value);
-                      console.log(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="table-responsive text-center main">
-                <table className="table table-dark table-striped mt-5">
+            <div className="row height d-flex justify-content-center align-items-center mt-5 mb-5 col-lg-12 ">
+              
+              <div className="table-responsive text-center ">
+                <table className="table   table-striped ml-5">
                   <thead>
                     <tr>
                       <th scope="col-2">First Name</th>
                       <th scope="col-2">Last Name</th>
                       <th scope="col-2">Phone</th>
-                      <th scope="col-2">Email</th>
+                      {/* <th scope="col-2">Email</th> */}
                       <th scope="col-2">Limits!</th>
                     </tr>
                   </thead>
@@ -413,7 +401,7 @@ const Users = () => {
                   {console.log(currentDocs.length)}
                   {currentDocs.length == 0 ? (
                     <div
-                      class="alert alert-danger fs-1 text-center m-auto "
+                      class="alert alert-success fs-1 text-center m-auto "
                       role="alert"
                     >
                       You Have NO Users
@@ -427,7 +415,7 @@ const Users = () => {
                             <td>{el.firstname}</td>
                             <td>{el.lastname}</td>
                             <td>{el.phone}</td>
-                            <td>{el.email}</td>
+                            {/* <td>{el.email}</td> */}
                             <td>
                               <div
                                 className="btn-group"
@@ -441,7 +429,7 @@ const Users = () => {
                                 >
                                   <button
                                     type="button"
-                                    className="btn btn-primary"
+                                    className="btn btn-success"
                                   >
                                     show details
                                   </button>
@@ -457,14 +445,13 @@ const Users = () => {
               </div>
               <div className="d-flex justify-content-center align-items-center">
                 <nav aria-label="Page navigation  example">
-                  <ul className="pagination cursor pagination pagination-lg">
+                  <ul className="pagination cursor pagination pagination-lg success">
                     {pages &&
                       pages.length > 1 &&
                       pages.map((el) => (
                         <li
-                          className={`page-item ${
-                            CurrPage == el ? "active" : ""
-                          }`}
+                          className={`page-item ${CurrPage == el ? "active" : ""
+                            }`}
                         >
                           <a class="page-link" onClick={() => goToPage(el)}>
                             {el}
@@ -477,7 +464,7 @@ const Users = () => {
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 };

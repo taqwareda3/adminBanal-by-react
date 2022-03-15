@@ -47,7 +47,7 @@ const ClientData = () => {
 
   return (
     <div className="mt-5">
-      <div className="client rounded shadow   text-white">
+      <div className="client success rounded shadow   text-white">
         <header className="head fs-5 fw-bold py-2">
           {client.firstname} {client.lastname}
         </header>
@@ -90,7 +90,7 @@ const ClientData = () => {
                   {order.status ? (
                     <span className="bg-success p-1 rounded">Done</span>
                   ) : (
-                    <span className="bg-primary p-1 rounded">waiting...</span>
+                    <span className="bg-light p-1 rounded">waiting...</span>
                   )}
                 </td>
 

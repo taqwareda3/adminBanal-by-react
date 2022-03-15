@@ -51,6 +51,7 @@ const DashBoard = () => {
           to="SellersList"
           title={"Active Sellers"}
           result={UsersDocs.length}
+          icon="bi bi-person-check-fill"
         />
         
         <DashBoardCard
@@ -58,6 +59,7 @@ const DashBoard = () => {
           to="sellerslistdeactive"
           title={"Un Active Sellers"}
           result={DeActiveSellerDocs.length}
+          icon="bi bi-person-check-fill"
         />
          
          <DashBoardCard
@@ -65,18 +67,21 @@ const DashBoard = () => {
           to="sellerrequest"
           title={"Seller Request"}
           result={SellerRequestDocs.length}
+          icon="bi bi-person-check-fill"
         />
            <DashBoardCard
           color="success"
           to="productlist"
           title={"Products"}
           result={Products.length}
+          icon="fa-solid fa-person"
         />
         <DashBoardCard
-          color="danger"
+          color="success"
           to="unacceptprd"
           title={"Un Accepted Products"}
           result={unAccepedPrd.length}
+          icon="bi bi-person-check-fill"
         />
         {/* <DashBoardCard title={"Posts"} result={87} color="warning" />
 

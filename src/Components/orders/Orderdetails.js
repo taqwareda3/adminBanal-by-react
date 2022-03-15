@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import OrderItem from "./orderitem";
+import "./orders.css";
+import'./../style/style.css'
 
 
 import "./orders.scss";
@@ -17,14 +19,17 @@ const Products = () => {
  
   return (
     <>
-      <div className=" table-responsive datatable-custom">
-        <div className="shadow p-5">
+      <div className=" table-responsive text-dark datatable-custom">
+        <div className=" p-5 ">
+          <div>
           <Link to="/orders">
             {" "}
-            <button className="btn btn-success float-end my-2">Back</button>
+            <button className="btn btn-success backDet ">Back</button>
           </Link>
-          <table className="rwd-table">
-            <thead>
+          </div>
+          <div className=" p-5 ml-5 col-lg-10" >
+          {/* <table className="rwd-table"> */}
+            {/* <thead>
               <tr>
                 <th>#</th>
                 <th>Item</th>
@@ -34,8 +39,8 @@ const Products = () => {
                 <th>Category</th>
                 <th>Status</th>
               </tr>
-            </thead>
-            <tbody>
+            </thead> */}
+            
               
               {products.map((prod, index) => {
                {console.log(prod.id)}
@@ -53,9 +58,10 @@ const Products = () => {
                   
                 );
               })}
-            </tbody>
-          </table>
+           
+          {/* </table> */}
         </div>
+      </div>
       </div>
     </>
   );

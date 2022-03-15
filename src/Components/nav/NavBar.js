@@ -4,20 +4,12 @@ import "./nav.css";
 
 export const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg text-warning bg-light mb-0">
-      <div className="container">
-        <Link className="navbar-brand" href="#" to="/wel">
-          Admin panal
-        </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+
+
+    <nav className="navbar navbar-expand-lg navbar-light nav  ">
+      <div className="container-fluid">
+        <a className="navbar-brand" href="#">Navbar</a>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
@@ -35,45 +27,44 @@ export const Navbar = () => {
 
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/orders">
-                Orders <span className="sr-only">(current)</span>
+                Orders
               </Link>
             </li>
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="Users">
                 {" "}
-                Users <span className="sr-only">(current)</span>
+                Users
               </Link>
             </li>
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/SellersList">
-                Active Sellers <span className="sr-only">(current)</span>
+                Active Sellers
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" href="#" to="/sellerslistdeactive">
-                Un Active Sellers <span className="sr-only">(current)</span>
+                Un Active Sellers
               </Link>
             </li>
-                       <li className="nav-item ">
+            <li className="nav-item ">
               <Link className="nav-link" href="#" to="/sellerrequest">
-                Requests <span className="sr-only">(current)</span>
+                Requests
               </Link>
             </li>
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/category">
-              Categorys <span className="sr-only">(current)</span>
+                Categorys
               </Link>
             </li>
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/Sales">
-                Sales <span className="sr-only">(current)</span>
+                Sales
               </Link>
             </li>
-            
           </ul>
         </div>
       </div>
     </nav>
-  );
-};
+  )
+}
 export default Navbar;

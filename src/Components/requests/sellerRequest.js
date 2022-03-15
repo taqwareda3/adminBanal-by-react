@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSellersRequest } from "../Store/sellerReqAct";
 import "../sellers/style.css";
 import Dialog from "../Dialoge/dialog";
+import'./../style/style.css'
 const SellerRequest = () => {
   const [keyword, setKeyword] = useState("");
   const [FilterDocs, setFilterDocs] = useState([]);
@@ -123,7 +124,7 @@ const goToPage = (page) => {
       </div>
     </div>
     <div className="table-responsive text-center main">
-      <table className="table table-dark table-striped mt-5">
+      <table className="table text-dark table-striped mt-5">
         <thead>
           <tr>
             <th scope="col-2">First Name</th>
@@ -142,7 +143,7 @@ const goToPage = (page) => {
         {console.log(currentDocs.length)}
         {currentDocs.length == 0 ? (
           <div
-            class="alert alert-danger fs-1 text-center m-auto "
+            class="alert alert-warning fs-1 text-center m-auto "
             role="alert"
           >
             You Have NO Sellers

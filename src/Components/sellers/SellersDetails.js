@@ -4,6 +4,7 @@ import { collection, doc, getDocs, query, where } from "firebase/firestore";
 import { db } from "./../firebase-config";
 import "./style.css";
 import { useEffect, useState } from "react";
+import'./../style/style.css'
 const SellerDetails = () => {
   const products = useSelector((state) => state.products);
   console.log(products);
@@ -34,7 +35,7 @@ const SellerDetails = () => {
       <div className=" table-responsive datatable-custom">
         {/* <Link to="/SellersList">  <button className="btn btn-success float-end my-2">Back</button></Link> */}
         <div className="table-responsive text-center main">
-          <table className="table table-light table-striped mt-5">
+          <table className="table  table-striped mt-5">
             <thead className="text-center">
               <tr>
                 <th scope="col-2">Product Name</th>

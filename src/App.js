@@ -6,7 +6,7 @@ import Product from "./Components/products/Product ";
 import Dashboard from "./Components/dashboard/dashboard";
 import SalesData from "./Components/chart/salesData";
 import Users from "./Components/users/Users";
-import UserDetails from "./Components/users/userDetails";
+// import UserDetails from "./Components/users/userDetails";
 import Orders from "./Components/orders/orders";
 // import Footer from "./Components/footer/footer";
 import Products from "./Components/orders/Orderdetails";
@@ -28,18 +28,18 @@ function App() {
       <Router>
         <Navbar />
 
-        <div className="row">
-          <Sidebar className="col-lg-3 fixed" />
+        <div className="row container ml-5">
+          {/* <Sidebar className="col-lg-3 fixed" /> */}
 
-          <div className="col-lg-9">
+          <div className="col-lg-12 ml-5 ">
             <Switch>
               <Route path="/SellersList" component={SellersList} />
               <Route path="/sellerslistdeactive" component={DeActivegetSellers} />
               <Route path="/Products" component={Product} />
               <Route path="/Sales" component={Sales} />
               <Route path="/Users" component={Users} />
-
-              <Route path="/userDetails" component={UserDetails}/>
+{/* 
+              <Route path="/userDetails" component={UserDetails}/> */}
 
 
               <Route path="/dashboard" component={Dashboard} />
