@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 //import { Line } from 'react-chartjs-2';
 import { db } from "./../firebase-config";
+import { Chart } from 'primereact/chart';
 import {
   firebase,
   collection,
@@ -9,15 +10,94 @@ import {
   query,
   where,
   onSnapshot,
-  addDoc,
+  addDoc, orderBy
 } from "firebase/firestore";
 
-const PieChart = () => {
-  const [totals, setTotals] = useState("");
+export const PieChart = ({Date, Sales}) => {
+  
+  const [data, setData] = useState([]);
+  const dataRef = query(collection(db, "Daily_Sales"), orderBy('Date'));
+  useEffect(() => {
+    getDocs(dataRef).then((Daily_Sales) => {
+        setData(Daily_Sales.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+    });
+  },[])
+  let label = []
+  let sales =[]
+  data.map(e=>{
+    label.push(e.Date)
+    sales.push(e.Sales)
+  })
+  const basicData = {
+      labels: label,
+      datasets: [
+          {
+              label: 'Daily Sales',
+              data: sales,
+              fill: true,
+              borderColor: '#42A5F8',
+              tension: .3,
+              backgroundColor: '#00994c'
+          },
+      ]
+  };
+
+  const getLightTheme = () => {
+      let basicOptions = {
+          maintainAspectRatio: false,
+          aspectRatio: .6,
+          plugins: {
+              legend: {
+                  labels: {
+                      color: '#495057'
+                  }
+              }
+          },
+          scales: {
+              x: {
+                  ticks: {
+                      color: '#495057'
+                  },
+                  grid: {
+                      color: '#ebedef'
+                  }
+              },
+              y: {
+                  ticks: {
+                      color: '#495057'
+                  },
+                  grid: {
+                      color: '#ebedef'
+                  }
+              }
+          }
+      };
+      return {
+          basicOptions,
+          
+      }
+  }
+
+  const { basicOptions,  } = getLightTheme();
+
+  return (
+      <div>
+          <div className="card">
+              <h5>Daily Sales </h5>
+              <Chart type="bar" data={basicData} options={basicOptions} />
+          </div>
+
+      </div>
+  )
+}
+
+             
+  
+ // const [totals, setTotals] = useState("");
   //const [chartData, setChartData]= useState({});
-  var salesdata = [];
-  var datedata = [];
-  const collectionRef = collection(db, "Daily_Sales");
+  //var salesdata = [];
+  //var datedata = [];
+  /*const collectionRef = collection(db, "Daily_Sales");
 
   const addTotals = () => {
     totals.map((index) => {
@@ -37,17 +117,16 @@ const PieChart = () => {
     labels: datedata,
     data: salesdata,
     borderWidth: 1,
-  })*/
+  })
   }, [totals]);
   return (
     <>
-      <div className="header">
-        <div className="links">{salesdata[0]}</div>
-      </div>
+      
     </>
   );
 };
-export default PieChart;
+*/
+
 
 /*<Line
         data={chartData}
