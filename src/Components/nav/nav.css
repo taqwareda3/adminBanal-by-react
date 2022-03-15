@@ -1,6 +1,36 @@
-.nav-link{
-     color: #ff9900;
+.nav-link {
+color: white;
+}
+ .navbar-nav  {
+    color: #f9fafb;
 }
 .navbar-brand{
-    color: #ff9900;
+    color: white;
+    font-size: 40px;
 }
+nav ul{
+  color: white;
+  margin-left: 8%;
+}
+ 
+li a {
+    font-size: 25px;
+    color:black;
+    font-weight: 800;
+}
+.navbar-nav ul{
+margin-left: 20%;
+}
+.d{
+    margin-bottom: 1%;
+}
+.nav{
+    background-color:white;
+    color: white;
+    height: 90px;    
+
+}
+.collapse ul li a {
+    color: w;
+}
+ 

@@ -10,6 +10,7 @@ import { getSellers } from "../Store/SellerAction";
 import "./style.css";
 import getOrderDetails from "../Store/ProductsAction";
 import Dialog from "../Dialoge/dialog";
+import'./../style/style.css'
 const SellersList = () => {
   var show = [];
   //const [UsersDocs, setUsersDocs] = useState([]);
@@ -168,7 +169,7 @@ const SellersList = () => {
           </div>
         </div>
         <div className="table-responsive text-center main">
-          <table className="table table-dark table-striped mt-5">
+          <table className=" table text-dark   mt-5">
             <thead>
               <tr>
                 <th scope="col-2">First Name</th>
@@ -218,7 +219,7 @@ const SellersList = () => {
                             className="text-danger"
                            
                           >
-                            <button type="button" className="btn btn-primary">
+                            <button type="button" className="btn btn-success">
                               show products
                             </button>
                           </Link>
@@ -232,7 +233,7 @@ const SellersList = () => {
 
                           <button
                             type="button"
-                            className="btn btn-warning"
+                            className="btn btn-light"
                             onClick={() => PaneUser(el.id)}
                           >
                             De Active

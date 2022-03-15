@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Store/productaction";
 import "./style.css";
+import'./../style/style.css'
 
 import Dialog from "../Dialoge/dialog";
 const ProductsList = () => {
@@ -102,7 +103,7 @@ const ProductsList = () => {
           </div>
         </div>
         <div className="table-responsive text-center main">
-          <table className="table table-dark table-striped mt-5">
+          <table className="table text-dark table-striped mt-5">
             <thead>
               <tr>
                <th>Category</th>

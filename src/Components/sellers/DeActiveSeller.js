@@ -10,6 +10,7 @@ import { deActivegetSellers } from "../Store/DeActiveSellerAc";
 import "./style.css";
 import getOrderDetails from "../Store/ProductsAction";
 import Dialog from "../Dialoge/dialog";
+import'./../style/style.css'
 const DeActivegetSellers= () => {
   var show = [];
   //const [UsersDocs, setUsersDocs] = useState([]);
@@ -49,12 +50,12 @@ const DeActivegetSellers= () => {
 
   //**************************Search*****************/
   const goToPage = (page) => {
-    console.log("click pge", page);
+    // console.log("click pge", page);
     setCurrPage(page);
   };
 
   const senddata = (items) => {
-    console.log(items);
+    // console.log(items);
     dispatch(getOrderDetails(items));
   };
 
@@ -123,7 +124,7 @@ const DeActivegetSellers= () => {
   };
   return (
     <>
-      {console.log(pages)}
+      {/* {console.log(pages)} */}
       <div className="container-fluid">
         <div className="row height d-flex justify-content-center align-items-center mt-5">
           <div className="col-md-8">
@@ -142,7 +143,7 @@ const DeActivegetSellers= () => {
                   // setKeyword(e.target.value);
                   let data = Users;
 
-                  console.log(data);
+                  // console.log(data);
                   let newdata;
                   if (e.target.value) {
                     data =
@@ -168,7 +169,7 @@ const DeActivegetSellers= () => {
           </div>
         </div>
         <div className="table-responsive text-center main">
-          <table className="table table-dark table-striped mt-5">
+          <table className="table  text-dark table-striped mt-5">
             <thead>
               <tr>
                 <th scope="col-2">First Name</th>
@@ -184,10 +185,10 @@ const DeActivegetSellers= () => {
               </tr>
             </thead>
            
-            {console.log(currentDocs.length)}
+            {/* {console.log(currentDocs.length)} */}
             {currentDocs.length == 0 ? (
               <div
-                class="alert alert-danger fs-1 text-center m-auto "
+                class="alert alert-success fs-1 text-center m-auto "
                 role="alert"
               >
                 You Have NO Sellers
@@ -218,7 +219,7 @@ const DeActivegetSellers= () => {
                             className="text-danger"
                             onClick={() => senddata(el.Products)}
                           >
-                            <button type="button" className="btn btn-primary">
+                            <button type="button" className="btn btn-light">
                               show products
                             </button>
                           </Link>
@@ -232,7 +233,7 @@ const DeActivegetSellers= () => {
 
                           <button
                             type="button"
-                            className="btn btn-warning"
+                            className="btn btn-success"
                             onClick={() => PaneUser(el.id)}
                           >
                            Make Active

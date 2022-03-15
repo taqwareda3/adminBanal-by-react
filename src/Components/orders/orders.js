@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../orders/orders.scss";
+// import "../orders/orders.scss";
 import "firebase/database";
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import getOrders from "../Store/OrdersAction";
 import getOrderDetails from "../Store/ProductsAction";
-import "./orders.css";
+// import "./orders.css";
+import'./../style/style.css'
 const Orders = () => {
   const [filterOrders, setfilterOrders] = useState([]);
 
@@ -84,14 +85,14 @@ const Orders = () => {
   }, [updateOrders]);
   return (
     <>
-      <div className="row">
+      <div className=" container row  all">
         <div className="col-lg-3 col-md-6 col-sm-12">
           <h5 className="mt-3 mb-3 text-secondary">Search By Date</h5>
         </div>
 
         <div className="d-flex align-items-center justify-content-between">
           <Datepicker
-            className="date"
+          className="date"
             onSelect={(selecteddate) => {
               SearchByDate(selecteddate);
             }}
@@ -100,44 +101,62 @@ const Orders = () => {
             maxDate={new Date()}
           />
           <div>
-            <input
-              type="radio"
-              class="btn-check "
-              onClick={() => Filterstat(true)}
-              name="options-outlined"
-              id="primary-outlined"
-              autocomplete="off"
-            />
-            <label class="btn btn-outline-Primary mx-2" for="primary-outlined">
-              Completed
-            </label>
+          <input
+          type="radio"
+          class="btn-check "
+          onClick={() => Filterstat(true)}
+          name="options-outlined"
+          id="primary-outlined"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-Primary mx-2" for="success-outlined">
+          Completed
+        </label>
 
-            <input
-              type="radio"
-              onClick={() => Filterstat(false)}
-              class="btn-check"
-              name="options-outlined"
-              id="danger-outlined"
-              autocomplete="off"
-            />
-            <label class="btn btn-outline-primary mx-2" for="danger-outlined">
-              Not Completed
-            </label>
-            <input
-              type="radio"
-              onClick={() => clear()}
-              class="btn-check"
-              name="options-outlined"
-              id="warning-outlined"
-              autocomplete="off"
-            />
-            <label class="btn btn-outline-warning" for="warning-outlined">
-              Reset
-            </label>
+        <input
+          type="radio"
+          onClick={() => Filterstat(false)}
+          class="btn-check"
+          name="options-outlined"
+          id="primary-outlined"
+          autocomplete="off"
+        />
+        <label class="btn btn-light mx-2" for="danger-outlined">
+          Not Completed
+        </label>
+        <input
+          type="radio"
+          onClick={()=>clear()}
+          class="btn-check"
+          name="options-outlined"
+          id="warning-outlined"
+          autocomplete="off"
+        />
+        <label class="btn btn-outline-warning" for="warning-outlined">
+          Reset
+        </label>
           </div>
         </div>
-
-        <table className="rwd-table">
+        {/* <div className="col-md-10">
+          <div className="search">
+            <i className="fa fa-search"></i>
+            <input
+              type="text"
+              className="form-control"
+              value={search}
+              placeholder="who user you want ?"
+              onChange={(e) => {
+                setSearch(e.target.value);
+                // console.log( e.target.value);
+              }}
+            />
+          </div>
+        </div>
+        <button className="btn btn-primary ta col-lg-2" placeholder="searh">
+          search
+            </button> */}
+       
+        <table className="rwd-table text-dark">
           <thead>
             <tr>
               <th>#</th>
@@ -160,7 +179,7 @@ const Orders = () => {
                     {order.status ? (
                       <span className="bg-success p-1 rounded">Completed</span>
                     ) : (
-                      <span className="bg-primary p-1 rounded">
+                      <span className="bg-light p-1 rounded">
                         Not Completed...
                       </span>
                     )}
@@ -175,7 +194,7 @@ const Orders = () => {
                     <Link to={`/orderDetails/${order.id}`}>
                       <button
                         onClick={() => senddata(order.Product)}
-                        className="btn text-white fw-bold orange"
+                        className="btn btn-success text-white fw-bold "
                       >
                         show details
                       </button>
