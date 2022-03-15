@@ -15,10 +15,10 @@ const AddCategory = async (cateqory) => {
      const cat = await getDocs(Category);
      const AddCategoryDoc = cat.add({
           ...cateqory,
-          name:'mostafa'
+         
      })
 
-
+ 
      console.log(AddCategoryDoc);
      return AddCategoryDoc;
 };

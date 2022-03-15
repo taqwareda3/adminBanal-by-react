@@ -21,14 +21,19 @@ import { AddToCategory } from "./Components/Store/AddCategoryAction";
 import ProductsList from "./Components/product/product";
 import UnAcceptProductsList from "./Components/product/unAcceptPrd";
 import ClientData from "./Components/Clientata/clientdata";
-
+import CreateCategory from './Components/Category/CreatCategory'
+import CategoryForm from './Components/Category/CategoryForm'
 function App() {
   return (
     <div>
       <Router>
         <Navbar />
 
-        <div className="row container ml-5">
+
+        <div className="row">
+
+     
+
           {/* <Sidebar className="col-lg-3 fixed" /> */}
 
           <div className="col-lg-12 ml-5 ">
@@ -47,6 +52,10 @@ function App() {
               <Route path="/orders" component={Orders} />
               <Route path="/sellerrequest" component={SellerRequest} />
               <Route path="/category" component={Category} />
+              <Route path='/CatForm' component={CategoryForm}/>
+              <Route path='/CatFormEdit/:id' component={CategoryForm}/>
+
+              <Route path="CatAdd" component={CreateCategory} />
               <Route path="/addcategory" component={AddToCategory} />
               <Route path="/productlist" component={ProductsList}/>
               <Route path="/unacceptprd" component={UnAcceptProductsList}/>

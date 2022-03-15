@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategoryData } from "../Store/CateqoryAction";
 import OrderItem from "../orders/orderitem";
+import{CreateCategory} from './CreatCategory';
+
 import "../orders/orders.scss";
 import './../style/style.css'
 const Cateqory = () => {
@@ -22,7 +24,10 @@ const Cateqory = () => {
           <table className="rwd-table float-start ml-5 tablecat">
             <thead>
               <tr>
-                <th>Category Name</th>
+
+                <th>Name</th>
+                <th>Edit</th>
+
               </tr>
             </thead>
             <tbody>
@@ -30,6 +35,10 @@ const Cateqory = () => {
                 return (
                   <tr key={cat.id}>
                     <td> {cat.name} </td>
+                    <td> 
+                      <button type="button" name="" id="" className="btn btn-primary" > 
+                    <Link  to={`/CatFormEdit/${cat.id}`}>Edit</Link>   </button>
+                    </td>
                   </tr>
                 );
               })}
@@ -39,6 +48,10 @@ const Cateqory = () => {
               </tr>
             </tbody>
           </table>
+          <button type="button" name="" id=""  className="btn btn-light"> <Link className="nav-link" href="#" to="/CatForm">
+                Add Category <span className="sr-only">(current)</span>
+              </Link></button>
+           {/* <CreateCategory/>  */}
         </div>
       </div>
     </>
