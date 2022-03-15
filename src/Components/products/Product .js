@@ -6,6 +6,7 @@ import{getProducts} from "../Store/ProductsAction";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import Dialog from "../Dialoge/dialog";
+import'./../style/style.css'
 
 import {
   collection, 

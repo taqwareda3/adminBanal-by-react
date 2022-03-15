@@ -1,0 +1,19 @@
+table thead{
+    background-color:#198754;
+
+}
+table td{
+    background-color: white;
+    font-size: 17px;
+    font-weight: 700;
+}
+.m{
+    padding-left: 19%;
+}
+.page-item.active{
+    background-color: #198754;
+    color: #198754;
+}
+.page-link{
+    color: #198754;
+}
