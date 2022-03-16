@@ -10,6 +10,7 @@ import { getSellersRequest } from "../Store/sellerReqAct";
 import { deActivegetSellers } from "../Store/DeActiveSellerAc";
 import { getProducts } from "../Store/productaction";
 import { getUnAccptProducts } from "../Store/unAcceptedpPrdAct";
+import Sales from "../sales/sales ";
 const DashBoard = () => {
    const dispatch = useDispatch();
   const UsersDocs=useSelector((state) => state.seller);
@@ -28,7 +29,13 @@ const DashBoard = () => {
   
 
   return (
-    <div className="col main pt-5  h-100 mb-5">
+    <div className="container-fluid  main pt-5  h-100 mb-5">
+     <div className="row  d-flex justify-content-center">
+       <div className="col-10">
+      <Sales></Sales>
+       </div>
+
+     </div>
       <div
         className="alert alert-warning fade collapse"
         role="alert"

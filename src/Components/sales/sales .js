@@ -53,12 +53,14 @@ const Sales = () => {
 
   return (
    <div className="row my-5 d-flex justify-content-center">
-     
+      <div className="row">
+       <PieChart/>
+     </div>
     <div className="row my-5 d-flex justify-content-center">
       
       <div class="col-lg-6 col-5 col-sm-6 py-2">
         <div class="card text-white">
-          <div class="card-body bg-success bg-obacity-25">
+          <div class="card-body bg-success bg-obacity-25 rounded rounded-5">
             <div className="row">
               <div className="col-lg-2 col-12">
                 <i class="fas fa-percent fa-4x"></i>
@@ -74,10 +76,10 @@ const Sales = () => {
         </div>
       </div>
      
-      <div class="col-lg-6 col-5 col-sm-6 py-2">
+      <div class="col-lg-6 col-5 col-sm-6 py-2 ">
         <Link to="/salesDetails" style={{textDecoration: 'none' }}>
         <div class="card text-white ">
-          <div class="card-body bg-secondary">
+          <div class="card-body bg-secondary rounded rounded-5">
             <div className="row">
               <div className="col-lg-2 col-12">
                 <i class="fas fa-money-bill-wave-alt fa-4x"></i>
@@ -96,9 +98,7 @@ const Sales = () => {
       
 
     </div>
-    <div className="row">
-       <PieChart/>
-     </div>
+   
     </div>
   )
 }

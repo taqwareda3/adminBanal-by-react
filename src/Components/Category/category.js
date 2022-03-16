@@ -19,9 +19,9 @@ const Cateqory = () => {
   return (
     <>
       {console.log(Cat)}
-      <div className=" table-responsive text-dark datatable-custom mt-5 m">
-        <div className="   ">
-          <table className="rwd-table float-start ml-5 tablecat">
+      <div className=" table-responsive text-dark datatable-custom mt-5">
+        <div className="  d-flex justify-content-center  ">
+          <table className="rwd-table float-start tablecat">
             <thead>
               <tr>
 
@@ -36,6 +36,7 @@ const Cateqory = () => {
                   <tr key={cat.id}>
                     <td> {cat.name} </td>
                     <td> 
+
                       <button type="button" name="" id="" className="btn btn-primary" > 
                     <Link  to={`/CatFormEdit/${cat.id}`}>Edit</Link>   </button>
                     </td>
@@ -43,17 +44,18 @@ const Cateqory = () => {
                 );
               })}
 
-              <tr >
-                <td> hello </td>
-              </tr>
+          
             </tbody>
           </table>
+        </div>
+      </div>
+      <div className="row d-flex justify-content-center mt-5">
+          <div className="col-3 d-flex justify-content-center">
           <button type="button" name="" id=""  className="btn btn-light"> <Link className="nav-link" href="#" to="/CatForm">
                 Add Category <span className="sr-only">(current)</span>
               </Link></button>
-           {/* <CreateCategory/>  */}
-        </div>
-      </div>
+              </div>
+              </div>
     </>
   );
 };

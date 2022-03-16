@@ -1,0 +1,9 @@
+.headd{
+    background-color:rgb(102, 153, 153)
+}
+#clickable{
+    font-size: 70px;
+}
+#clickable:hover{
+    cursor: pointer;
+}

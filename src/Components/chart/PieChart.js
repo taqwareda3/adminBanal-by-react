@@ -36,8 +36,8 @@ export const PieChart = ({Date, Sales}) => {
               data: sales,
               fill: true,
               borderColor: '#42A5F8',
-              tension: .3,
-              backgroundColor: '#00994c'
+              tension: .7,
+              backgroundColor: 'rgb(146, 154, 160)'
           },
       ]
   };

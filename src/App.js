@@ -25,7 +25,7 @@ import CreateCategory from './Components/Category/CreatCategory'
 import CategoryForm from './Components/Category/CategoryForm'
 function App() {
   return (
-    <div>
+    <div className="container-fluid">
       <Router>
         <Navbar />
 
@@ -36,7 +36,7 @@ function App() {
 
           {/* <Sidebar className="col-lg-3 fixed" /> */}
 
-          <div className="col-lg-12 ml-5 ">
+          <div className="col-lg-12">
             <Switch>
               <Route path="/SellersList" component={SellersList} />
               <Route path="/sellerslistdeactive" component={DeActivegetSellers} />
