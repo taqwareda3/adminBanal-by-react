@@ -1,6 +1,5 @@
 
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import OrderItem from "./orderitem";
 
@@ -38,7 +37,7 @@ const Products = () => {
             <tbody>
               
               {products.map((prod, index) => {
-               {console.log(prod.id)}
+               {console.log(prod)}
                 return (
                   <OrderItem
                     id={index + 1}
