@@ -128,7 +128,7 @@
 //                 <th scope="col-2">Last Name</th>
 //                 <th scope="col-2">Email</th>
 //                 <th scope="col-2">Phone</th>
-//                 <th scope="col-2">Limits!</th>
+//                 <th scope="col-2">Details</th>
 //               </tr>
 //             </thead>
 
@@ -394,7 +394,7 @@ const Users = () => {
                       <th scope="col-2">Last Name</th>
                       <th scope="col-2">Phone</th>
                       {/* <th scope="col-2">Email</th> */}
-                      <th scope="col-2">Limits!</th>
+                      <th scope="col-2">Details</th>
                     </tr>
                   </thead>
 

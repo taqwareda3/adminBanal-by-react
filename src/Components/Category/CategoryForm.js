@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  putCategoryData } from "../Store/CateqoryAction";
 import { db } from "../firebase-config";
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
      collection,
      documentId,
@@ -14,8 +14,9 @@ import {
      where,
 } from "firebase/firestore";
 import { async } from "@firebase/util";
+import '../style/style.css'
 function CategoryForm() {
- 
+  let history= useHistory()
   const [name, setname] = useState("");
   const [NameAr, setNameAr] = useState("");
   let { id } = useParams();
@@ -55,12 +56,13 @@ if(id === undefined)
     
   }
   return (
-    <>
-      <form>
+    <div className="row d-flex align-items-center justify-content-center mt-5">
+        <div className="row d-flex align-items-center justify-content-center mt-5">
+      <form className="col-7 d-flex flex-column align-items-center justify-content-center mt-5" >
         <label>
           Category Name in English
-          <input
-            className="form-control"
+          <input required
+            className="form-control inputs"
             onChange={(e) => {
               setname(e.target.value);
             }}
@@ -74,12 +76,12 @@ if(id === undefined)
         <br />
         <label>
           Category Name in Arabic
-          <input
+          <input required
             onChange={(e) => {
               setNameAr(e.target.value);
             }}
             id="nameAR"
-            className="form-control"
+            className="form-control inputs"
             value={NameAr}
             name="NameAr"
             type="text"
@@ -89,11 +91,18 @@ if(id === undefined)
         <br></br>
         <button
           type="button"
-          name=""
+          name="" 
+          
           onClick={() => {
+            if(NameAr!="" && name!=""){
+              newcat()  
+              history.goBack()
+            } else{
+              alert("plaese add category!")
+            }
+            
             document.getElementById('nameEN').value=""
             document.getElementById('nameAR').value=""
-newcat()
           }}
           id=""
           className="btn btn-primary"
@@ -101,7 +110,7 @@ newcat()
           SAVE
         </button>
       </form>
-    </>
+    </div></div>
   );
 }
 export default CategoryForm;

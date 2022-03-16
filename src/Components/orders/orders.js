@@ -84,8 +84,8 @@ const Orders = () => {
     setfilterOrders([...updateOrders]);
   }, [updateOrders]);
   return (
-    <>
-      <div className=" container row  all">
+    <div className=" d-flex align-items-center justify-content-between flex-column">
+      <div className=" container row all d-flex align-items-center justify-content-between">
         <div className="col-lg-3 col-md-6 col-sm-12">
           <h5 className="mt-3 mb-3 text-secondary">Search By Date</h5>
         </div>
@@ -222,7 +222,7 @@ const Orders = () => {
           </ul>
         </nav>
       </div>
-    </>
+    </div>
   );
 };
 

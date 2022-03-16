@@ -180,7 +180,7 @@ const SellersList = () => {
                 <th scope="col-2">City </th>
                 <th scope="col-2">Street </th>
                 <th scope="col-2">Build Number</th>
-                <th scope="col-2">Limits!</th>
+                <th scope="col-2">Details</th>
               
               </tr>
             </thead>

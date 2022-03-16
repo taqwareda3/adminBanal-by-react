@@ -21,7 +21,7 @@ import {
 const Product = () => {
   const [Product, setProduct] = useState([]);
   const [FilterDocs, setFilterDocs] = useState([]);
-  const [itemPerPage, setItemPerPage] = useState(7);
+  const [itemPerPage, setItemPerPage] = useState(10);
   const [pages, setPages] = useState([]);
   const [CurrPage, setCurrPage] = useState(1);
   const [selects, setSelects] = useState();
@@ -50,13 +50,16 @@ const handleDeleteDialoag = (message, isLoading) => {
     message,
     isLoading,
   });
+  
 };
 const areUSureDelete=async(choose)=>{
   if(choose){
     const deleteProd = doc(db, "Products", idDeleteProd.current);
   await deleteDoc(deleteProd);
+  window.location.reload()
   if (currentDocs.length === 1 && CurrPage !== 1) {
     setCurrPage(CurrPage - 1);
+    window.location.reload()
   }
   dispatch(getData());
   handleDeleteDialoag("", false);
@@ -104,6 +107,7 @@ const areUSureDelete=async(choose)=>{
     // const prodDoc = doc(db, "Products", id);
     // await deleteDoc(prodDoc);
     // getData();
+    
   };
   return (
     <div className="row mb-5">
@@ -151,9 +155,9 @@ const areUSureDelete=async(choose)=>{
          
         </div>
 
-        <div className="table-responsive text-center main">
-          <table className="table table-hover ">
-            <thead className="thead-light">
+        <div className="table-responsive text-center main d-flex justify-content-center">
+          <table className="table table-hover col-10">
+            <thead className=" headingC sticky-top">
               <tr >
                 <th>Category</th>
                 <th>Name</th>
@@ -187,7 +191,7 @@ const areUSureDelete=async(choose)=>{
                           src={product.Image}
                         />
                       </td>
-                     <td>
+                    {/* <td>
                      {deleteDialog.isLoading && (
                             <Dialog
                               onDialog={areUSureDelete}
@@ -202,7 +206,7 @@ const areUSureDelete=async(choose)=>{
                             {" "}
                             DELETE
                           </button> 
-                     </td>
+                     </td> */}
                       
                     </tr>
                   );

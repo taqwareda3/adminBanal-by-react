@@ -8,7 +8,7 @@ export const Navbar = () => {
 
     <nav className="navbar navbar-expand-lg navbar-light nav  ">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">Navbar</a>
+        <a className="navbar-brand" href="#">Jumia Dashboard</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -43,7 +43,7 @@ export const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" href="#" to="/sellerslistdeactive">
-                Un Active Sellers
+                Unactive Sellers
               </Link>
             </li>
             <li className="nav-item ">
@@ -53,7 +53,7 @@ export const Navbar = () => {
             </li>
             <li className="nav-item ">
               <Link className="nav-link" href="#" to="/category">
-                Categorys
+                Categories
               </Link>
             </li>
             <li className="nav-item ">

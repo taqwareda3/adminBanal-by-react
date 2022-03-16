@@ -8,7 +8,7 @@ function Welcom() {
     welcome to 
      
     jumia<br/> Admin
-     Panal
+     Panel
 
   </div>
 }
