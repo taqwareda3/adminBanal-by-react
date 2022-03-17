@@ -74,7 +74,7 @@ const ClientData = () => {
           <tr>
             <th>#</th>
             <th>Total</th>
-            <th>status</th>
+           
 
             <th>Order date</th>
             <th></th>
@@ -86,13 +86,13 @@ const ClientData = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{order.Total}</td>
-                <td>
+                {/* <td>
                   {order.status ? (
                     <span className="bg-success p-1 rounded">Done</span>
                   ) : (
                     <span className="bg-light p-1 rounded">waiting...</span>
                   )}
-                </td>
+                </td> */}
 
                 <td>{order.date}</td>
                 <td>

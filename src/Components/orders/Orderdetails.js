@@ -18,10 +18,10 @@ const Products = () => {
       <div className=" table-responsive text-dark datatable-custom">
         <div className=" p-5 ">
           <div>
-            <Link to="/orders">
+            <a href="/orders">
               {" "}
               <button className="btn btn-success backDet ">Back</button>
-            </Link>
+            </a>
           </div>
           <div className=" p-5 ml-5 col-lg-10">
             {/* <table className="rwd-table"> */}

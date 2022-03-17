@@ -35,6 +35,7 @@ setstat(props.status)
                 <th>quantity</th>
                 <th>Category</th>
                 <th>Status</th>
+                <th></th> 
               </tr>
             </thead>
             <tbody>
