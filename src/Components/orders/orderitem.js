@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase-config";
 import "../orders/orders.css";
@@ -13,11 +13,14 @@ const OrderItem = (props) => {
     let updateuser = doc(db, "Orders", id);
     let res = (await getDoc(updateuser)).data();
 
-    let m = { ...res.Product[0], delviredstatus: e };
+    let m = { ...res.Product[0], deliveredstatus: e };
     res.Product[0] = m;
     console.log(res.Product);
     await updateDoc(updateuser, { Product: res.Product });
   };
+useEffect(()=>{
+setstat(props.status)
+},[])
   return (
     <>
       <div className=" row">
@@ -46,7 +49,7 @@ const OrderItem = (props) => {
 
                 <td> {props.quantity}</td>
                 <td>{props.category}</td>
-
+                <td>{statee}</td>
                 <td>
                   <div>
                     <select className="btn btn-outline-success"
