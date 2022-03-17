@@ -65,7 +65,7 @@ const Orders = () => {
   }, []);
   const sts = (arr) => {
     let hh = arr.filter((e) => {
-      return e.delviredstatus != "deliverd";
+      return e.deliveredstatus != "deliverd";
     });
     if (hh.length > 0) {
       return false;
@@ -109,7 +109,7 @@ const Orders = () => {
           id="primary-outlined"
           autocomplete="off"
         />
-        <label class="btn btn-outline-Primary mx-2" for="success-outlined">
+        <label class="btn btn-outline-Primary mx-2" for="primary-outlined">
           Completed
         </label>
 
@@ -118,10 +118,10 @@ const Orders = () => {
           onClick={() => Filterstat(false)}
           class="btn-check"
           name="options-outlined"
-          id="primary-outlined"
+          id="danger-outlined"
           autocomplete="off"
         />
-        <label class="btn btn-light mx-2" for="danger-outlined">
+        <label class="btn btn-outline-Primary mx-2" for="danger-outlined">
           Not Completed
         </label>
         <input
