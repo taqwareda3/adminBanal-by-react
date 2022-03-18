@@ -20,6 +20,11 @@ export const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item ">
+              <Link className="nav-link" href="#" to="/Sales">
+                Sales
+              </Link>
+            </li>
+            <li className="nav-item ">
               <Link className="nav-link" href="#" to="/Products">
                 Products <span className="sr-only">(current)</span>
               </Link>
@@ -56,11 +61,7 @@ export const Navbar = () => {
                 Categories
               </Link>
             </li>
-            <li className="nav-item ">
-              <Link className="nav-link" href="#" to="/Sales">
-                Sales
-              </Link>
-            </li>
+            
           </ul>
         </div>
       </div>

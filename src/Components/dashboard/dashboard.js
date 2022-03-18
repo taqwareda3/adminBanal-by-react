@@ -11,6 +11,7 @@ import { deActivegetSellers } from "../Store/DeActiveSellerAc";
 import { getProducts } from "../Store/productaction";
 import { getUnAccptProducts } from "../Store/unAcceptedpPrdAct";
 import Sales from "../sales/sales ";
+
 const DashBoard = () => {
    const dispatch = useDispatch();
   const UsersDocs=useSelector((state) => state.seller);
@@ -80,16 +81,10 @@ const DashBoard = () => {
           color="success"
           to="productlist"
           title={"Products"}
-          result={Products.length}
+          result={unAccepedPrd.length}
           icon="fa-solid fa-person"
         />
-        <DashBoardCard
-          color="success"
-          to="unacceptprd"
-          title={"Un Accepted Products"}
-          result={unAccepedPrd.length}
-          icon="bi bi-person-check-fill"
-        />
+      
         {/* <DashBoardCard title={"Posts"} result={87} color="warning" />
 
         <DashBoardCard title={"Tweets"} result={125} color="danger" />

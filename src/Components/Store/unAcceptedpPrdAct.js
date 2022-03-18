@@ -14,8 +14,7 @@ const getUnAcceptProducts = async () => {
   const product = await getDocs(Products);
   const ProductsDocs = product.docs
     .map((index) => ({ ...index.data(), id: index.id }))
-    .filter((item) => (item.isAccepted));
- 
+   
   console.log(ProductsDocs);
   return ProductsDocs;
 };
