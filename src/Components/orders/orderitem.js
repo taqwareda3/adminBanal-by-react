@@ -61,7 +61,7 @@ setstat(props.status)
                     >
                       <option>pending</option>
                       <option>shipping</option>
-                      <option>deliverd</option>
+                      <option>delivered</option>
                       <option>canceled</option>
                     </select>
                   </div>

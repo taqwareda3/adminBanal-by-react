@@ -26,7 +26,7 @@ const Cateqory = () => {
               <tr>
 
                 <th>Name</th>
-                <th>Edit</th>
+                {/* <th>Edit</th> */}
 
               </tr>
             </thead>
@@ -35,11 +35,11 @@ const Cateqory = () => {
                 return (
                   <tr key={cat.id}>
                     <td> {cat.name} </td>
-                    <td> 
+                    {/* <td> 
 
                       <button type="button" name="" id="" className="btn btn-primary" > 
                     <Link  to={`/CatFormEdit/${cat.id}`}>Edit</Link>   </button>
-                    </td>
+                    </td> */}
                   </tr>
                 );
               })}
