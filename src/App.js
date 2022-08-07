@@ -6,9 +6,7 @@ import Product from "./Components/products/Product ";
 import Dashboard from "./Components/dashboard/dashboard";
 import SalesData from "./Components/chart/salesData";
 import Users from "./Components/users/Users";
-// import UserDetails from "./Components/users/userDetails";
 import Orders from "./Components/orders/orders";
-// import Footer from "./Components/footer/footer";
 import Products from "./Components/orders/Orderdetails";
 import SellerRequest from "./Components/requests/sellerRequest";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -28,14 +26,7 @@ function App() {
     <div className="container-fluid">
       <Router>
         <Navbar />
-
-
         <div className="row">
-
-     
-
-          {/* <Sidebar className="col-lg-3 fixed" /> */}
-
           <div className="col-lg-12">
             <Switch>
               <Route path="/SellersList" component={SellersList} />
@@ -43,33 +34,28 @@ function App() {
               <Route path="/Products" component={Product} />
               <Route path="/Sales" component={Sales} />
               <Route path="/Users" component={Users} />
-{/* 
-              <Route path="/userDetails" component={UserDetails}/> */}
-
-
               <Route path="/dashboard" component={Dashboard} />
-
               <Route path="/orders" component={Orders} />
               <Route path="/sellerrequest" component={SellerRequest} />
               <Route path="/category" component={Category} />
-              <Route path='/CatForm' component={CategoryForm}/>
-              <Route path='/CatFormEdit/:id' component={CategoryForm}/>
+              <Route path='/CatForm' component={CategoryForm} />
+              <Route path='/CatFormEdit/:id' component={CategoryForm} />
 
               <Route path="CatAdd" component={CreateCategory} />
               <Route path="/addcategory" component={AddToCategory} />
-              <Route path="/productlist" component={ProductsList}/>
-              <Route path="/unacceptprd" component={UnAcceptProductsList}/>
+              <Route path="/productlist" component={ProductsList} />
+              <Route path="/unacceptprd" component={UnAcceptProductsList} />
               <Route path="/orderDetails/:id" component={Products} />
 
               <Route path="/SellerDetails/:id" component={SellerDetails} />
-              <Route path='/salesDetails' component={SalesData}/>
-              <Route path='/client/:id' component={ClientData}/>
+              <Route path='/salesDetails' component={SalesData} />
+              <Route path='/client/:id' component={ClientData} />
               <Route path="" component={Welcom} />
-              
+
             </Switch>
           </div>
         </div>
-        
+
       </Router>
     </div>
   );

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import "../orders/orders.scss";
 import "firebase/database";
 import Datepicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -7,38 +6,36 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import getOrders from "../Store/OrdersAction";
 import getOrderDetails from "../Store/ProductsAction";
-// import "./orders.css";
-import'./../style/style.css'
+import './../style/style.css'
+import numEGP from "../../Services/NumberFormat";
+import UpdateOrderState from "../../Services/updateOrderState";
+import Pagination from '../pagination/Pagination'
 const Orders = () => {
-  const [filterOrders, setfilterOrders] = useState([]);
 
+  const [filterOrders, setfilterOrders] = useState([]);
   const [itemPerPage, setItemPerPage] = useState(5);
   const [pages, setPages] = useState([]);
   const [CurrPage, setCurrPage] = useState(1);
   const indexOfLastSeller = CurrPage * itemPerPage;
   const indexOfFirstSeller = indexOfLastSeller - itemPerPage;
   const currentDocs = filterOrders.slice(indexOfFirstSeller, indexOfLastSeller);
+  const [selectedDate, setselectedDate] = useState('');
+  const [updateOrders, setupdateOrders] = useState([]);
+  const dispatch = useDispatch();
+  let Orders = useSelector((state) => state.orders);
+
   const goToPage = (page) => {
     console.log("click pge", page);
     setCurrPage(page);
   };
-  //*******************************************/
   const senddata = (prds) => {
-    console.log(prds);
+
     dispatch(getOrderDetails(prds));
   };
   const clear = () => {
-    console.log(";lkjhgf");
     setfilterOrders([...updateOrders]);
+    setselectedDate('')
   };
-  const [selectedDate, setselectedDate] = useState(new Date());
-  const dispatch = useDispatch();
-  let Orders = useSelector((state) => state.orders);
-  //////////search by username////////////
-
-  const [updateOrders, setupdateOrders] = useState([]);
-
-  ///////////
   const paginate = (items) => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(items.length / itemPerPage); i++) {
@@ -51,31 +48,14 @@ const Orders = () => {
 
     setfilterOrders([...updateOrders.filter((order) => order["date"] == date)]);
   };
-  const Filterstat = (word) => {
-    setfilterOrders([
-      ...updateOrders.filter((order) => order["status"] == word),
-    ]);
-  };
-  var numEGP = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "EGP",
-  });
   useEffect(() => {
     dispatch(getOrders());
+
   }, []);
-  const sts = (arr) => {
-    let hh = arr.filter((e) => {
-      return e.deliveredstatus != "deliverd";
-    });
-    if (hh.length > 0) {
-      return false;
-    } else {
-      return true;
-    }
-  };
+
   useEffect(() => {
     Orders = Orders.map((e) => {
-      return { ...e, buyer: e.buyer.id, status: sts(e.Product) };
+      return { ...e, buyer: e.buyer.id, status: UpdateOrderState(e.Product) };
     });
     paginate(Orders);
     setupdateOrders([...Orders]);
@@ -92,7 +72,7 @@ const Orders = () => {
 
         <div className="d-flex align-items-center justify-content-between">
           <Datepicker
-          className="date"
+            className="date"
             onSelect={(selecteddate) => {
               SearchByDate(selecteddate);
             }}
@@ -101,61 +81,22 @@ const Orders = () => {
             maxDate={new Date()}
           />
           <div>
-          <input
-          type="radio"
-          class="btn-check "
-          onClick={() => Filterstat(true)}
-          name="options-outlined"
-          id="primary-outlined"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-Primary mx-2" for="primary-outlined">
-          Completed
-        </label>
 
-        <input
-          type="radio"
-          onClick={() => Filterstat(false)}
-          class="btn-check"
-          name="options-outlined"
-          id="danger-outlined"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-Primary mx-2" for="danger-outlined">
-          Not Completed
-        </label>
-        <input
-          type="radio"
-          onClick={()=>clear()}
-          class="btn-check"
-          name="options-outlined"
-          id="warning-outlined"
-          autocomplete="off"
-        />
-        <label class="btn btn-outline-warning" for="warning-outlined">
-          Reset
-        </label>
-          </div>
-        </div>
-        {/* <div className="col-md-10">
-          <div className="search">
-            <i className="fa fa-search"></i>
             <input
-              type="text"
-              className="form-control"
-              value={search}
-              placeholder="who user you want ?"
-              onChange={(e) => {
-                setSearch(e.target.value);
-                // console.log( e.target.value);
-              }}
+              type="radio"
+              onClick={() => clear()}
+              className="btn-check"
+              name="options-outlined"
+              id="warning-outlined"
+
             />
+            <label className="btn btn-outline-warning text-dark" htmlFor="warning-outlined">
+              Reset
+            </label>
           </div>
         </div>
-        <button className="btn btn-primary ta col-lg-2" placeholder="searh">
-          search
-            </button> */}
-       
+
+
         <table className="rwd-table text-dark">
           <thead>
             <tr>
@@ -168,21 +109,24 @@ const Orders = () => {
               <th></th>
             </tr>
           </thead>
-          {console.log(currentDocs)}
-          {currentDocs.map((order, index) => {
-            return (
-              <tbody key={index}>
-                <tr key={index}>
+          <tbody >
+            {currentDocs.map((order, index) => {
+              return (
+
+                <tr key={index.toString()}>
                   <td>{index + 1}</td>
                   <td>{numEGP.format(order.Total)}</td>
                   <td>
-                    {order.status ? (
-                      <span className="bg-success p-1 rounded">Completed</span>
-                    ) : (
-                      <span className="bg-light p-1 rounded">
-                        Not Completed...
-                      </span>
-                    )}
+
+                    {
+
+                      order.status ? (
+                        <span className="bg-success p-1 rounded">Completed</span>
+                      ) : (
+                        <span className="bg-light p-1 rounded">
+                          Not Completed...
+                        </span>
+                      )}
                   </td>
                   <td>
                     <Link to={`/client/${order.buyer}`}>
@@ -201,27 +145,16 @@ const Orders = () => {
                     </Link>
                   </td>
                 </tr>
-              </tbody>
-            );
-          })}
+
+              );
+            })}
+          </tbody>
         </table>
       </div>
+      {currentDocs.length > 0 ?
 
-      <div className="d-flex justify-content-center align-items-center">
-        <nav aria-label="Page navigation  example">
-          <ul className="pagination cursor pagination pagination-lg">
-            {pages &&
-              pages.length > 1 &&
-              pages.map((el) => (
-                <li className={`page-item ${CurrPage == el ? "active" : ""}`}>
-                  <a class="page-link" onClick={() => goToPage(el)}>
-                    {el}
-                  </a>
-                </li>
-              ))}
-          </ul>
-        </nav>
-      </div>
+        <Pagination pages={pages} CurrPage={CurrPage} goToPage={goToPage} /> : <h1>No Orders</h1>}
+
     </div>
   );
 };

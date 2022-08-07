@@ -1,9 +1,5 @@
-import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { db } from "../firebase-config";
+import React, { useEffect } from "react";
 import DashBoardCard from "./dashbord-card";
-import BestProducts from './bestproducts'
 import { useDispatch, useSelector } from "react-redux";
 import { getSellers } from "../Store/SellerAction";
 import { getSellersRequest } from "../Store/sellerReqAct";
@@ -13,30 +9,30 @@ import { getUnAccptProducts } from "../Store/unAcceptedpPrdAct";
 import Sales from "../sales/sales ";
 
 const DashBoard = () => {
-   const dispatch = useDispatch();
-  const UsersDocs=useSelector((state) => state.seller);
-  const SellerRequestDocs=useSelector((state) => state.sellerRequest);
-  const DeActiveSellerDocs=useSelector((state) => state.deActiveSeller);
-  const Products=useSelector((state) => state.product);
-  const unAccepedPrd=useSelector((state) => state.unAcceptPrd);
+  const dispatch = useDispatch();
+  const UsersDocs = useSelector((state) => state.seller);
+  const SellerRequestDocs = useSelector((state) => state.sellerRequest);
+  const DeActiveSellerDocs = useSelector((state) => state.deActiveSeller);
+  const Products = useSelector((state) => state.product);
+  const unAccepedPrd = useSelector((state) => state.unAcceptPrd);
   console.log(UsersDocs);
   useEffect(() => {
-  dispatch(getSellers());
-  dispatch(getSellersRequest());
-  dispatch(deActivegetSellers());
-  dispatch(getProducts());
-  dispatch(getUnAccptProducts());
+    dispatch(getSellers());
+    dispatch(getSellersRequest());
+    dispatch(deActivegetSellers());
+    dispatch(getProducts());
+    dispatch(getUnAccptProducts());
   }, []);
-  
+
 
   return (
     <div className="container-fluid  main pt-5  h-100 mb-5">
-     <div className="row  d-flex justify-content-center">
-       <div className="col-10">
-      <Sales></Sales>
-       </div>
+      <div className="row  d-flex justify-content-center">
+        <div className="col-10">
+          <Sales></Sales>
+        </div>
 
-     </div>
+      </div>
       <div
         className="alert alert-warning fade collapse"
         role="alert"
@@ -61,7 +57,7 @@ const DashBoard = () => {
           result={UsersDocs.length}
           icon="bi bi-person-check-fill"
         />
-        
+
         <DashBoardCard
           color="danger"
           to="sellerslistdeactive"
@@ -69,31 +65,26 @@ const DashBoard = () => {
           result={DeActiveSellerDocs.length}
           icon="bi bi-person-check-fill"
         />
-         
-         <DashBoardCard
+
+        <DashBoardCard
           color="primary"
           to="sellerrequest"
           title={"Seller Request"}
           result={SellerRequestDocs.length}
           icon="bi bi-person-check-fill"
         />
-           <DashBoardCard
+        <DashBoardCard
           color="success"
           to="productlist"
           title={"Products"}
           result={unAccepedPrd.length}
           icon="fa-solid fa-person"
         />
-      
-        {/* <DashBoardCard title={"Posts"} result={87} color="warning" />
 
-        <DashBoardCard title={"Tweets"} result={125} color="danger" />
-
-        <DashBoardCard title={"Shares"} result={36} color="primary" /> */}
       </div>
       <hr />
 
-      <BestProducts/>
+
     </div>
   );
 };
